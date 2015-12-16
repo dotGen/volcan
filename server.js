@@ -9,6 +9,5 @@ app.get('/', function (req, res) {
 });
 
 var server = app.listen(process.env.PORT | 8080, function () {
-  console.log('El puerto es '+ process.env.PORT | 8080);
   console.log('Iniciando servidor en http://%s:%s', server.address().address, server.address().port);
 });
