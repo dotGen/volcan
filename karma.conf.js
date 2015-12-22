@@ -15,8 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/angular-google-maps/node_modules/lodash/index.js',
+      'node_modules/jquery/dist/jquery.min.js',
       'node_modules/angular/angular.min.js',
+      'node_modules/angular-material/angular-material.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/angular-google-maps/node_modules/angular-simple-logger/dist/angular-simple-logger.min.js',
+      'node_modules/angular-google-maps/dist/angular-google-maps.min.js',
       'public/js/app.js',
       'test/*.js'
     ],
