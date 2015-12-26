@@ -14,9 +14,11 @@ app.use("/scripts/angular-material", express.static(__dirname + "/node_modules/a
 app.use("/scripts/angular-google-maps", express.static(__dirname + "/node_modules/angular-google-maps/dist"));
 app.use("/scripts/lodash", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/lodash"));
 app.use("/scripts/angular-simple-logger", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/angular-simple-logger/dist"));
+app.use("/scripts/angular-ui-router", express.static(__dirname + "/node_modules/angular-ui-router/release"));
 
-app.get('/', function (req, res) {
-  res.sendFile('index.html');
+
+app.get('*', function (req, res) {
+  res.sendFile(__dirname + '/app/template.html');
 });
 
 var server = app.listen(process.env.PORT | 8081, function () {

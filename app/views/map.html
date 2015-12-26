@@ -1,0 +1,7 @@
+<div ng-controller="mapController">
+  <ui-gmap-google-map center="map.center" zoom="map.zoom">
+      <div ng-repeat="marker in markers">
+        <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+      </div>
+  </ui-gmap-google-map>
+</div>

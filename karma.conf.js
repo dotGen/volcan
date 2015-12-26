@@ -22,10 +22,11 @@ module.exports = function(config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angular-google-maps/node_modules/angular-simple-logger/dist/angular-simple-logger.min.js',
       'node_modules/angular-google-maps/dist/angular-google-maps.min.js',
-      'public/js/app.js',
-      'test/*.js'
+      'scripts/app.js',
+      'scripts/services/complaintsServiceApi.js',
+      'scripts/controllers/mapController.js',
+      'test/**/*.js'
     ],
-
 
     // list of files to exclude
     exclude: [

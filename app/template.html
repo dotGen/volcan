@@ -15,21 +15,20 @@
     <script src="/scripts/angular-material/angular-material.min.js"></script>
     <script src="/scripts/angular-simple-logger/angular-simple-logger.min.js"></script>
     <script src="/scripts/angular-google-maps/angular-google-maps.min.js"></script>
+    <script src="/scripts/angular-ui-router/angular-ui-router.js"></script>
 
     <!-- our angular app -->
 
     <script src="./scripts/app.js"></script>
-    <script src="./scripts/services/complaintsServiceApi.js"></script>
+    <script src="./scripts/services/complaintsService.js"></script>
+    <script src="./scripts/services/authenticationService.js"></script>
+    <script src="./scripts/services/userService.js"></script>
     <script src="./scripts/controllers/mapController.js"></script>
-    
+    <script src="./scripts/controllers/loginController.js"></script>
+
+
   </head>
   <body ng-app="app">
-    <div ng-controller="mapController">
-      <ui-gmap-google-map center="map.center" zoom="map.zoom">
-          <div ng-repeat="marker in markers">
-            <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
-          </div>
-      </ui-gmap-google-map>
-    </div>
+    <div ui-view></div>
   </body>
 </html>
