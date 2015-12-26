@@ -21,9 +21,10 @@
     <script src="./scripts/app.js"></script>
     <script src="./scripts/services/complaintsServiceApi.js"></script>
     <script src="./scripts/controllers/mapController.js"></script>
-    
+
   </head>
   <body ng-app="app">
+
     <div ng-controller="mapController">
       <ui-gmap-google-map center="map.center" zoom="map.zoom">
           <div ng-repeat="marker in markers">
@@ -31,5 +32,7 @@
           </div>
       </ui-gmap-google-map>
     </div>
+  <form >
+
   </body>
 </html>

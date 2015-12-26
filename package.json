@@ -17,6 +17,7 @@
     "angular-google-maps": "^2.2.1",
     "angular-material": "^1.0.0",
     "express": "4.13.3",
+    "mongoose": "^4.3.4",
     "jquery": "^2.1.4"
   },
   "author": "dotGen Team",
