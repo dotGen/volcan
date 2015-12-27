@@ -1,6 +1,6 @@
 (function (angular) {
 
-  var app = angular.module("app", ["uiGmapgoogle-maps", "ui.router"]);
+  var app = angular.module("app", ['ngMaterial', "uiGmapgoogle-maps", "ui.router"]);
 
   //Angular Google Maps configuration
 
@@ -16,23 +16,20 @@
 
   app.config(function ($stateProvider, $urlRouterProvider) {
 
-      $urlRouterProvider.otherwise("register");
+      $urlRouterProvider.otherwise("map");
 
       $stateProvider
         .state('login', {
           url: "/login",
-          templateUrl: "views/login.html",
-          controller : 'RegisterController'
+          templateUrl: "views/login.html"
         })
         .state('register', {
           url: "/register",
-          templateUrl: "views/register.html",
-          controller: 'LoginController'
+          templateUrl: "views/register.html"
         })
         .state('map', {
           url : "/map",
-          templateUrl : "views/map.html",
-          controller : 'MapController'
+          templateUrl : "views/map.html"
         });
 
   });

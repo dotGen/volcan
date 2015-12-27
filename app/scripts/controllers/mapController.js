@@ -1,6 +1,8 @@
 (function (angular) {
 
-  angular.module("app").controller("MapController", ["$scope", function ($scope) {
+  var app = angular.module("app");
+
+  app.controller("MapController", ["$scope", function ($scope) {
 
       $scope.markers = [];
       $scope.map = {center : {longitude: -73 , latitude : 45}, zoom: 8};
