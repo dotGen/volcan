@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
+var bodyparser = require('body-parser');
 var app = express();
 
 //views directory
@@ -34,7 +35,31 @@ var checkIfIsAuthorized = function (req, res, next) {
     }
 };
 
+//Middleware to parse POST request body to JSON (req.body.{parameter})
+//--> https://github.com/expressjs/body-parser
+
+app.use(bodyparser.json());
+
+//Middleware to parse url to JSON (req.body.{url-query-parameter})
+//--> https://github.com/expressjs/body-parser
+
+app.use(body.parser.urlencoded({extended: true}));
+
 //Routes
+
+  //An user attempt to login
+
+app.get('/signin', function (req, res) {
+
+});
+
+  //An user attempt to register an account
+
+app.post('/signup', function (req, res) {
+  //Create token with jwt.
+  //Connect to db and save User with unique token.
+  //Return token.
+});
 
 app.get('*', function (req, res) {
   res.sendFile(__dirname + '/app/template.html');

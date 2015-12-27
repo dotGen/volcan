@@ -2,11 +2,11 @@
 
   var app =  angular.module("app");
 
-  app.controller("RegisterController", ["$scope", "AuthenticationService", function (scope, auth) {
+  app.controller("RegisterController", ["$scope", "AuthenticationService", function ($scope, AuthenticationService) {
 
-    scope.new_user = {};
+    $scope.new_user = {};
 
-    scope.register = function () {
+    $scope.register = function () {
 
     };
 
