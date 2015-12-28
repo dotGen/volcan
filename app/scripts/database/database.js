@@ -1,4 +1,4 @@
-/**** All database related ****/
+
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://dotGen:h4g18042015@ds035485.mongolab.com:35485/volcan');
@@ -8,46 +8,62 @@ db.once('open', function() {
 console.log('Mongo conectado');
 });
 
-var firstSchema = mongoose.Schema({
-    name: String
-});
-var secondSchema = mongoose.Schema({
-    address: String,
+var complainSchema = mongoose.Schema
+({
     gpsPosition: String,
-    likes: Number
-
+    address: String,
+    likes : Number,
+    description: String,
+    moderated : Boolean,
+    date : String,
+    comments : Array,
+    photo : String,
+    audio : String
 });
 
-var firstModel = mongoose.model('Prueba', firstSchema);
-
-var firstObject = new firstModel({
-  name : 'nombre de prueba'
+var userSchema = mongoose.Schema
+({
+    userName : String,
+    password : String,
+    name : String,
+    lastName : String,
+    age : Number,
+    email : String,
+    profilePhoto : String
 });
 
-firstSchema.methods.speak = function () {
-  var greeting = this.name
-    ? "My name is " + this.name
-    : "I don't have a name";
-  console.log(greeting);
-}
-secondSchema.methods.speak = function () {
-  var greeting = this.name
-    ? "My name is " + this.name + this.pos
-    : "I don't have a name";
-  console.log(greeting);
-}
+var Complains = mongoose.model('denuncias', complainSchema);
 
-var secondModel = mongoose.model('de', secondSchema);
-var secondObject = new secondModel({
-  name: 'nombre de prueba 2||',
-  pos:'25.3,-23.54'
-});
+function addComplain(gpsPosition, address, description, photo, audio)
+{
+  var newComplain = new Complains
+  ({
+    gpsPosition : gpsPosition,
+    address : address,
+    description : description,
+    photo : photo,
+    audio : audio
+  });
 
-secondObject.save(function (err, secondObject) {
-  if (err) return console.error(err);
-});
+  newComplain.save( function (err)
+  {
+    if (err) return console.error(err);
+  });
+};
 
-secondModel.remove({ name: 'nombre de prueba 2||' }, function (err) {
+function getComplain(gpsPosition)
+{
+  Complains.findOne({ 'gpsPosition': gpsPosition }, 'address likes', function (err, foundComplain) {
   if (err) return handleError(err);
-  console.log('Se borró');
-});
+  return foundComplain;
+  })
+};
+
+function deleteComplain(gpsPosition){
+  Complains.remove
+  (
+    {'gpsPosition': gpsPosition }, function (err){
+      if (err) return handleError(err);
+    }
+  )
+};
