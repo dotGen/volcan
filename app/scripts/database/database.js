@@ -23,16 +23,16 @@ var complainSchema = mongoose.Schema
 
 var userSchema = mongoose.Schema
 ({
-    userName : String,
+    email : String,
     password : String,
     name : String,
     lastName : String,
     age : Number,
-    email : String,
     profilePhoto : String
 });
 
 var Complains = mongoose.model('denuncias', complainSchema);
+var Users = mongoose.model('usuarios', userSchema);
 
 function addComplain(gpsPosition, address, description, photo, audio)
 {
@@ -63,6 +63,40 @@ function deleteComplain(gpsPosition){
   Complains.remove
   (
     {'gpsPosition': gpsPosition }, function (err){
+      if (err) return handleError(err);
+    }
+  )
+};
+
+function addUser(email, password, name, lastName)
+{
+  var newUser = new Users
+  ({
+    email : email,
+    password : password,
+    name : name,
+    lastName : lastName,
+
+  });
+
+  newUser.save( function (err)
+  {
+    if (err) return console.error(err);
+  });
+};
+
+function getUser(email)
+{
+  Complains.findOne({ 'email': email }, 'email name lastName age', function (err, foundUser) {
+  if (err) return handleError(err);
+  return foundUser;
+  })
+};
+
+function deleteUser(email){
+  Complains.remove
+  (
+    {'email': email }, function (err){
       if (err) return handleError(err);
     }
   )
