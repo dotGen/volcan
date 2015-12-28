@@ -14,6 +14,7 @@ app.use(express.static('app'));
 app.use("/scripts/angular", express.static(__dirname + "/node_modules/angular"));
 app.use("/scripts/jquery", express.static(__dirname + "/node_modules/jquery/dist"));
 app.use("/scripts/angular-material", express.static(__dirname + "/node_modules/angular-material"));
+app.use("/scripts/ngstorage", express.static(__dirname + "/node_modules/ngstorage"));
 app.use("/scripts/angular-animate", express.static(__dirname + "/node_modules/angular-animate"));
 app.use("/scripts/angular-aria", express.static(__dirname + "/node_modules/angular-aria"));
 app.use("/scripts/angular-google-maps", express.static(__dirname + "/node_modules/angular-google-maps/dist"));
@@ -43,22 +44,50 @@ app.use(bodyparser.json());
 //Middleware to parse url to JSON (req.body.{url-query-parameter})
 //--> https://github.com/expressjs/body-parser
 
-app.use(body.parser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({extended: true}));
+
+//Middleware for set HTTP Headers for authentication.
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
 
 //Routes
 
   //An user attempt to login
 
-app.get('/signin', function (req, res) {
+app.post('/signin', function (req, res) {
+
+  var email = req.body.email;
+  var password = req.body.password;
+
+  //Request to BD find the user that match email && password.
+
+  //If match, return JSON with some flag of success, token, user.email, user.password.
+
+  //Else, return JSON with some flag of error.
 
 });
 
   //An user attempt to register an account
 
 app.post('/signup', function (req, res) {
-  //Create token with jwt.
-  //Connect to db and save User with unique token.
-  //Return token.
+
+  var email = req.body.email;
+  var password = req.body.password;
+
+  //Request to BD find an user that match the email.
+
+  //If match, return JSON with some flag of error.
+
+  //Else, create an user, create a token, store in db
+  //and return JSON with some flag of success, token, user.email, user.password.
+
+  //jwt.sign(user, process.env.JWT_SECRET);
+
 });
 
 app.get('*', function (req, res) {

@@ -1,12 +1,14 @@
 (function (angular) {
+
   var app =  angular.module("app");
 
   app.controller("LoginController", ["$scope", "AuthenticationService", function ($scope, AuthenticationService) {
 
-    var user;
+    $scope.user = {};
 
-    $scope.login = function (username, password) {
-        AuthenticationService.authenticate(username, password);
+    $scope.submit = function () {
+        AuthenticationService.signin({email : $scope.user.email, password : $scope.user.password});
+        $scope.user = {};
     };
 
   }]);

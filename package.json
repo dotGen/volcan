@@ -20,7 +20,8 @@
     "body-parser": "^1.14.2",
     "express": "4.13.3",
     "jquery": "^2.1.4",
-    "jsonwebtoken": "^5.4.1"
+    "jsonwebtoken": "^5.4.1",
+    "ngstorage": "^0.3.10"
   },
   "author": "dotGen Team",
   "license": "ISC",

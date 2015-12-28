@@ -1,15 +1,27 @@
 (function (angular) {
-  angular.module("app").factory("UserService", [ "$http", function ($http) {
+
+  var app = angular.module("app");
+
+  app.factory("UserService", [ "$http", function ($http) {
 
     return {
 
       createUser : function (user) {
         $http.post('', user)
         .then(function (res) {
-            return res.data;
+            callback(res.data);
         }, function (err) {
 
         });
+      },
+
+      getUserByUsername : function (username) {
+        $http.get(''+ username)
+          .then(function (res) {
+
+          }, function (err) {
+
+          });
       },
 
       getAll : function () {
@@ -31,14 +43,7 @@
       },
 
 
-      getUserByUsername : function (username) {
-        $http.get(''+ username)
-          .then(function (res) {
-            return res.data;
-          }, function (err) {
 
-          });
-      },
 
       updateUser : function (id, user) {
         $http.put(''+id, user)

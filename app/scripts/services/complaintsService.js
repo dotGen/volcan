@@ -1,5 +1,8 @@
 (function (angular) {
-  angular.module("app").factory("ComplaintsService", [ "$http", function ($http) {
+
+  var app = angular.module("app");
+
+  app.factory("ComplaintsService", [ "$http", function ($http) {
 
       return {
 

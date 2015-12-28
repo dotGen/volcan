@@ -1,6 +1,6 @@
 (function (angular) {
 
-  var app = angular.module("app", ['ngMaterial', "uiGmapgoogle-maps", "ui.router"]);
+  var app = angular.module("app", ["ngStorage","ngMaterial", "uiGmapgoogle-maps", "ui.router"]);
 
   //Angular Google Maps configuration
 
@@ -19,12 +19,12 @@
       $urlRouterProvider.otherwise("map");
 
       $stateProvider
-        .state('login', {
-          url: "/login",
+        .state('signin', {
+          url: "/signin",
           templateUrl: "views/login.html"
         })
-        .state('register', {
-          url: "/register",
+        .state('signup', {
+          url: "/signup",
           templateUrl: "views/register.html"
         })
         .state('map', {

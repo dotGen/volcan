@@ -6,8 +6,9 @@
 
     $scope.new_user = {};
 
-    $scope.register = function () {
-
+    $scope.submit = function () {
+        AuthenticationService.signin({ email : $scope.new_user.email, password : $scope.new_user.password});
+        $scope.new_user = {};
     };
 
   }]);
