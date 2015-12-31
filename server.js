@@ -22,7 +22,6 @@ app.use("/scripts/jquery", express.static(__dirname + "/node_modules/jquery/dist
 app.use("/scripts/angular-material", express.static(__dirname + "/node_modules/angular-material"));
 app.use("/scripts/ngstorage", express.static(__dirname + "/node_modules/ngstorage"));
 app.use("/scripts/angular-messages", express.static(__dirname + "/node_modules/angular-messages"));
-
 app.use("/scripts/angular-animate", express.static(__dirname + "/node_modules/angular-animate"));
 app.use("/scripts/angular-aria", express.static(__dirname + "/node_modules/angular-aria"));
 app.use("/scripts/angular-google-maps", express.static(__dirname + "/node_modules/angular-google-maps/dist"));
