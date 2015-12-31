@@ -1,6 +1,6 @@
 (function (angular) {
 
-  var app = angular.module("app", ["ngStorage","ngMaterial", "uiGmapgoogle-maps", "ui.router"]);
+  var app = angular.module("app", ["ngStorage","ngMaterial", "uiGmapgoogle-maps", "ui.router", "ngMessages"]);
 
   //Angular Google Maps configuration
 
@@ -16,20 +16,25 @@
 
   app.config(function ($stateProvider, $urlRouterProvider) {
 
-      $urlRouterProvider.otherwise("map");
+      $urlRouterProvider.otherwise("principal");
 
       $stateProvider
-        .state('signin', {
-          url: "/signin",
-          templateUrl: "views/login.html"
+        .state('entrar', {
+          url: "/entrar",
+          templateUrl: "views/entrar.html"
         })
-        .state('signup', {
-          url: "/signup",
-          templateUrl: "views/register.html"
+        .state('registro', {
+          url: "/registro",
+          templateUrl: "views/registro.html"
         })
-        .state('map', {
-          url : "/map",
-          templateUrl : "views/map.html"
+        .state('reenvio', {
+          url : "/reenvio",
+          templateUrl: "views/reenvio.html"
+
+        })
+        .state('principal', {
+          url : "/",
+          templateUrl : "views/principal.html"
         });
 
   });
