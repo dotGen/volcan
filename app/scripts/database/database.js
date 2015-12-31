@@ -28,6 +28,7 @@ var userSchema = mongoose.Schema
     name : String,
     lastName : String,
     age : Number,
+    token : String,
     profilePhoto : String
 });
 
@@ -68,36 +69,58 @@ function deleteComplain(gpsPosition){
   )
 };
 
-function addUser(email, password, name, lastName)
+function addUser(obj, callback, errorCallback)
 {
-  var newUser = new Users
-  ({
-    email : email,
-    password : password,
-    name : name,
-    lastName : lastName,
+  var newUser = new Users(obj);
 
-  });
-
-  newUser.save( function (err)
+  newUser.save( function (err, product)
   {
-    if (err) return console.error(err);
+    if (err){
+      errorCallback(err);
+    }else{
+      callback(product);
+    }
   });
 };
+var jfind={"email":"email@cambiado.com"};
+var json={"email":"email@cambiado.com"};
 
-function getUser(email)
+function updateUser(find, changes, callback, errorCallback)
+{
+  Users.findOneAndUpdate(find, changes, {new:true}, function (err, raw) {
+    if (err){
+      callback(err);
+    }else{
+      errorCallback(raw);
+    }
+  });
+
+};
+
+function deleteUser(data, callback, errorCallback)
+{Users.findOneAndRemove(data, function (err, found){
+      if (err){
+        errorCallback(err);
+      }else{
+        callback(found);
+      }
+    }
+  )
+};
+
+deleteUser(jfind, function(found){console.log(found)},function(){console.log("mal")});
+
+function getUserByEmail(email)
 {
   Complains.findOne({ 'email': email }, 'email name lastName age', function (err, foundUser) {
   if (err) return handleError(err);
   return foundUser;
   })
 };
-
-function deleteUser(email){
-  Complains.remove
-  (
-    {'email': email }, function (err){
-      if (err) return handleError(err);
-    }
-  )
+function getUserByToken(token)
+{
+  Complains.findOne({ 'token': token }, 'email name lastName age', function (err, foundUser) {
+  if (err) return handleError(err);
+  return foundUser;
+  })
 };
