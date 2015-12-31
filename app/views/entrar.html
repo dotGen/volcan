@@ -19,13 +19,13 @@
 
             <md-input-container>
               <label>Contraseña</label>
-              <input ng-model="new_user.password" name="password" type="password" minlength="10" required>
+              <input ng-model="new_user.password" name="password" type="password" minlength="5" required>
               <div ng-messages="projectForm.password.$error" ng-hide="projectForm.password.$pristine" ng-show="projectForm.password.$touched" multiple md-auto-hide="false">
                 <div ng-message="required" >
                   La contraseña es un campo obligatorio.
                 </div>
                 <div ng-message="minlength">
-                  Mínima longitud de 10 carácteres.
+                  Mínima longitud de 5 carácteres.
                 </div>
               </div>
             </md-input-container><br>
@@ -36,7 +36,7 @@
               </md-button>
             </div>
 
-            <a ui-sref="entrar">¿Has olvidado la contraseña?</a>
+            <a ui-sref="reenvio">¿Has olvidado la contraseña?</a>
 
         </md-content>
       </form>
