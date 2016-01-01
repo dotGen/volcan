@@ -1,179 +1,183 @@
 <div layout="row" ng-controller="AppController">
 
-  <div flex="none" layout="column" ng-controller="SideNavController" style="background-color:#484647">
+  <div flex="auto" layout="column" style="background-color:#484647">
 
-        <div flex="none" style="text-align:center">
-            <img src="" style="background-color:white;margin:5px 5px 5px 10px;border-radius:50%;"height="100px" width="100px">
-        </div>
+        <md-sidenav flex layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
 
-        <div flex="none" style="text-align:center">
-          <h2 style="color:white" class="md-headline">Usuario</h2>
-        </div>
+          <div flex="none" layout="column" style="background-color:#484647">
+              <img src="{{user.avatar}}" style="border-radius:50%;margin:30px 55px 10px 55px">
+          </div>
 
-        <div flex="100" layout="column">
-          <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
+          <div flex="none" style="text-align:center;background-color:#484647">
+            <h2 style="color:white" class="md-headline">{{user.name}}</h2>
+          </div>
 
-          <md-button flex="none" style="background-color:#504f4e;color:white">Últimas denuncias</md-button>
-          <md-button flex="none" style="background-color:#504f4e;color:white">Más valoradas</md-button>
-          <md-button flex="none" style="background-color:#504f4e;color:white">Denuncias cercanas</md-button>
-          <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
-          <md-button flex="none" style="background-color:#504f4e;color:white">Estadísticas</md-button>
-          <md-button flex="none" style="background-color:#504f4e;color:white" ng-show="$rootScope.isLogin()">Mis denuncias</md-button>
-          <div flex="auto" layout="column" layout-align="end none">
+          <div flex layout="column" style="background-color:#484647">
+            <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
+            <md-button flex="none" style="background-color:#504f4e;color:white">
+                Últimas denuncias
+            </md-button>
+            <md-button flex="none" style="background-color:#504f4e;color:white">Más valoradas</md-button>
+            <md-button flex="none" style="background-color:#504f4e;color:white">Denuncias cercanas</md-button>
+            <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
+            <md-button flex="none" style="background-color:#504f4e;color:white">Estadísticas</md-button>
+            <md-button flex="none" style="background-color:#504f4e;color:white" ng-show="$rootScope.isLogin()">Mis denuncias</md-button>
+          </div>
+
+          <div layout="column" layout-align="end none" style="background-color:#484647">
             <md-button style="background-color:#504f4e;color:white">Reportar fallo</md-button>
           </div>
-        </div>
+
+        </md-sidenav>
 
   </div>
 
-  <div flex="100" layout="column">
+  <div flex="100" layout="column" style="background-color:#b1afac">
 
-    <div flex="none" style="background-color:#6d6d6c;">
+      <md-toolbar>
 
-      <div flex="none" layout="row" style="height:50px">
+        <div class="md-toolbar-tools" style="background-color:#6d6d6c">
 
-        <div layout="row" layout-align="start">
-          <div flex="none">
-              <img src="" style="background-color:white;margin:5px 5px 0px 10px;border-radius:50%;" height="40px" width="40px">
-          </div>
+            <md-button hide-gt-md ng-click="openLeftMenu()">
+              <md-icon md-font-set="material-icons" style="color:white"  >menu</md-icon>
+            </md-button>
 
-          <div flex="none" layout="row" layout-align="center center" style="margin-left:10px;">
-            <h3 style="color:white" class="md-headline">Volcán</h3>
-          </div>
+            <md-icon md-font-set="material-icons" hide-md hide-xs hide-sm>
+
+            </md-icon>
+
+            <h3 md-header-title flex>Volcán</h3>
+
+            <span flex></span>
+
+            <md-button ui-sref="registro" ng-click="!isLogin()" >
+              <md-icon md-font-set="material-icons" style="color:white" >assignment</md-icon>
+            </md-button>
+
+            <md-button ui-sref="entrar" ng-click="!isLogin()">
+              <md-icon md-font-set="material-icons" style="color:white" >account_circle</md-icon>
+            </md-button>
+
+            <form ng-controller="LogoutController" ng-show="isLogin()">
+              <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
+            </form>
+
         </div>
 
-        <div flex="100" layout="row" layout-align="end">
-          <div flex="none" ng-show="!isLogin()">
-            <md-button ui-sref="registro" style="background-color:#504f4e;color:white" >Registrarse</md-button>
-            <md-button ui-sref="entrar" style="background-color:#504f4e;color:white">Conectarse</md-button>
-          </div>
+      </md-toolbar>
 
-          <form flex="none" ng-controller="LogoutController" ng-show="$rootScope.isLogin()">
-            <md-button ng-click="submit()">Salir</md-button>
-          </form>
-        </div>
+      <md-content>
 
-      </div>
+        <div flex="100" layout="row" style="background-color:#b1afac">
 
-    </div>
+            <div flex="100" layout="column" ng-controller="MapController">
 
-    <div flex="100" layout="row" style="background-color:#b1afac">
+              <div flex layout="column" style="padding: 40px 40px 15px 40px">
 
-        <div flex="100" layout="column" ng-controller="MapController">
-
-          <div flex="none" layout="column" style="padding: 40px 40px 15px 40px">
-
-              <div flex="none" style="background-color:#7e7d7c;">
-                <h2 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h2>
-              </div>
-
-              <div style="background-color:#7e7d7c;padding:2px">
-                <ui-gmap-google-map style="padding:0" center="map.center" zoom="map.zoom">
-                  <div ng-repeat="marker in markers">
-                    <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+                  <div flex="none" style="background-color:#7e7d7c;">
+                    <h2 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h2>
                   </div>
-                </ui-gmap-google-map>
+
+                  <div style="background-color:#7e7d7c;padding:2px">
+
+                    <ui-gmap-google-map style="padding:0" center="map.center" zoom="map.zoom">
+                      <div ng-repeat="marker in markers">
+                        <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+                      </div>
+                    </ui-gmap-google-map>
+
+                  </div>
+
+                  <div flex="none" layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
+                    <md-button flex="none" style="color:white">
+                      <md-icon md-font-set="material-icons" style="color:white">near_me</md-icon>
+                    </md-button>
+                    <md-divider></md-divider>
+                    <md-button flex="none" style="color:white">
+                      <md-icon md-font-set="material-icons" style="color:white">add</md-icon>
+                    </md-button>
+                    <md-divider></md-divider>
+                    <md-button flex="none" style="color:white">
+                      <md-icon md-font-set="material-icons" style="color:white">add_a_photo</md-icon>
+                    </md-button>
+                  </div>
+
               </div>
 
-              <div flex="none" layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
-                <md-button flex="none" style="color:white">Opción 1</md-button>
-                <md-divider></md-divider>
-                <md-button flex="none" style="color:white">Opción 2</md-button>
-                <md-divider></md-divider>
-                <md-button flex="none" style="color:white">Opción 3</md-button>
-                <md-divider></md-divider>
-                <md-button flex="none" style="color:white">Opción 4</md-button>
+              <div flex="50" layout="column" style="padding: 10px 40px 15px 40px">
+
+                <div flex="none" style="background-color:#7e7d7c">
+                  <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
+                </div>
+
+                <div flex="100" layout="column" style="background-color:#999795;padding:0">
+
+                    <div flex="none" layout="row" style="padding-top:10px; padding-bottom:10px;height:90px">
+                        <div flex="10" style="background-color:#333334;padding:10px">
+
+                        </div>
+                        <div flex="90" style="background-color:#6d6d6c;padding:10px;color:white">
+                            Pequeña descripción
+                        </div>
+                    </div>
+
+                </div>
+
               </div>
 
-          </div>
-
-          <div flex="50" layout="column" style="padding: 10px 40px 15px 40px">
-
-            <div flex="none" style="background-color:#7e7d7c">
-              <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
             </div>
 
-            <div flex="100" layout="column" style="background-color:#999795;padding:0">
+            <div flex="50" hide-xs ng-show="isFocusOnComplaint()" layout="column" style="padding: 40px 20px 15px 10px">
 
-                <div layout="row" style="padding-top:10px; padding-bottom:10px">
-                    <div flex="20" style="background-color:#333334;padding:10px">
+              <div flex="none" layout="row" style="background-color:#7e7d7c">
+                <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Descripción</h2>
+                <div flex="none" layout="row" layout-align="end">
+                  <md-button style="margin:0;padding-left:40px">
+                    <md-icon md-font-set="material-icons" style="color:white;" >chevron_right</md-icon>
+                  </md-button>
+                </div>
+              </div>
 
+              <div flex="none" style="background-color:#999795;">
+                  <img src="{{currentComplaint.image}}">
+              </div>
+
+              <div flex="none" style="background-color:#6d6d6c;">
+                  <p>{{currentComplaint.description}}</p>
+              </div>
+
+              <div flex="none" layout="row" style="background-color:#7e7d7c;padding:0">
+
+                  <div flex="50" style="text-align:center">
+                    <md-button style="color:white">Comentar</md-button>
+                  </div>
+
+                  <md-divider></md-divider>
+
+                  <div flex="50" style="text-align:center">
+                    <md-button style="color:white;">Compartir</md-button>
+                  </div>
+
+              </div>
+
+              <div flex="none" layout="column" style="background-color:#999795;padding:0">
+
+                <div ng-repeat="comment in currentComplaint.comments" layout="row" style="padding-top:10px; padding-bottom:10px">
+                    <div flex="20" style="background-color:#333334;padding:10px;color:white">
+                        {{comment.author}}
                     </div>
-                    <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white">
-                        Pequeña descripción
+                    <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
+                        {{comment.description}}
                     </div>
                 </div>
 
-                <div layout="row" style="padding-top:10px; padding-bottom:10px">
-                    <div flex="20" style="background-color:#333334;padding:10px">
-
-                    </div>
-                    <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white">
-                        Otra pequeña descripción
-                    </div>
-                </div>
+              </div>
 
             </div>
-
-          </div>
 
         </div>
 
-        <div flex="50" layout="column" style="padding: 40px 20px 15px 10px">
+      </md-content>
 
-          <div flex="none" layout="row" style="background-color:#7e7d7c">
-            <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Descripción</h2>
-            <div flex="none" layout="row" layout-align="end">
-              <md-button style="margin:0;padding-left:40px"><md-icon md-font-set="material-icons" style="color:white;" >chevron_right</md-icon></md-button>
-            </div>
-          </div>
-
-          <div flex="10" style="background-color:#999795">
-
-          </div>
-
-          <div flex="10" style="background-color:#6d6d6c">
-
-          </div>
-
-          <div flex="none" layout="row" style="background-color:#7e7d7c;padding:0">
-
-              <div flex="50" style="text-align:center">
-                <md-button style="color:white">Comentar</md-button>
-              </div>
-
-              <md-divider></md-divider>
-
-              <div flex="50" style="text-align:center">
-                <md-button style="color:white;">Compartir</md-button>
-              </div>
-
-          </div>
-
-          <div flex="none" layout="column" style="background-color:#999795;padding:0">
-
-            <div layout="row" style="padding-top:10px; padding-bottom:10px">
-                <div flex="20" style="background-color:#333334;padding:10px;color:white">
-
-                </div>
-                <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
-                    Un comentario ...
-                </div>
-            </div>
-
-            <div layout="row" style="padding-top:10px; padding-bottom:10px">
-                <div flex="20" style="background-color:#333334;padding:10px;color:white">
-
-                </div>
-                <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white">
-                    Otro comentario ...
-                </div>
-            </div>
-
-          </div>
-
-        </div>
-
-    </div>
   </div>
 </div>

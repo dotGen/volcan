@@ -2,10 +2,16 @@
 
   var app =  angular.module("app");
 
-  app.factory("AuthenticationService", ["$http", "$localStorage", "$log", function ($http, $localStorage, $log) {
+  app.factory("AuthenticationService", ["$http", "$localStorage", "$log",  function ($http, $localStorage, $log) {
 
     function getUserFromToken () {
-      return (typeof ($localStorage.token) !== 'undefined') ? JSON.parse(urlBase64Decode(token.split('.')[1])) : {};
+      if (typeof ($localStorage.token) !== 'undefined')  {
+        var user = JSON.parse(urlBase64Decode($localStorage.token.split('.')[1]));
+        user.authenticate = true;
+        return user;
+      } else {
+        return {authenticate : false, name : "Anónimo"};
+      }
     }
 
     function urlBase64Decode(str) {
@@ -25,36 +31,39 @@
         return window.atob(output);
     }
 
-    function signin (user_form) {
+    function signin (user_form, callback) {
         $http.post('/entrar', {email : user_form.email, password : encryptWithSHA512(user_form.password)}
         , {headers: {'Authorization': $localStorage.token}})
         .then(function (res) {
-          $localStorage.token = res.data.token;
-          $log.log("Success to singin : token : "+ $localStorage.token);
+          if (res.data.success) {
+            $localStorage.token = res.data.token;
+            callback();
+          }
         }, function () {
           $log.log("Failed to signin");
         });
     }
 
-    function signup (user_form) {
+    function signup (user_form, callback) {
       $http.post('/registro', {email : user_form.email, name: user_form.name, password : encryptWithSHA512(user_form.password)}
       , { headers: {'Authorization': $localStorage.token}})
       .then(function (res) {
-        $localStorage.token = res.data.token;
-        $log.log("Success to signup : token : "+ $localStorage.token);
+        if (res.data.success) {
+          $localStorage.token = res.data.token;
+          callback();
+        }
       }, function () {
         $log.log("Failed to signup");
       });
     }
 
     function signout (callback) {
-      $localStorage.removeItem(token);
-      $log.log("Success signout");
+      $localStorage.$reset();
       callback();
     }
 
     function encryptWithSHA512 (str) {
-      return CryptoJS.SHA512(str);
+      return CryptoJS.SHA512(str).toString();
     }
 
 
