@@ -4,6 +4,8 @@
 
   app.controller("AppController", ["$scope", "AuthenticationService", "$mdSidenav", "GravatarService", function ( $scope, AuthenticationService, $mdSidenav, GravatarService) {
 
+    $scope.showSearch = false;
+
     $scope.user = AuthenticationService.getCurrentUser();
 
     $scope.complaints = [];

@@ -13,13 +13,13 @@
           </div>
 
           <div flex layout="column" style="background-color:#484647">
-            <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
+            <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
             <md-button flex="none" style="background-color:#504f4e;color:white">
                 Últimas denuncias
             </md-button>
             <md-button flex="none" style="background-color:#504f4e;color:white">Más valoradas</md-button>
             <md-button flex="none" style="background-color:#504f4e;color:white">Denuncias cercanas</md-button>
-            <md-divider flex="none" style="background-color:#6d6d6c"></md-divider>
+            <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
             <md-button flex="none" style="background-color:#504f4e;color:white">Estadísticas</md-button>
             <md-button flex="none" style="background-color:#504f4e;color:white" ng-show="$rootScope.isLogin()">Mis denuncias</md-button>
           </div>
@@ -34,7 +34,7 @@
 
   <div flex="100" layout="column" style="background-color:#b1afac">
 
-      <md-toolbar>
+      <md-toolbar ng-show="!showSearch">
 
         <div class="md-toolbar-tools" style="background-color:#6d6d6c">
 
@@ -50,15 +50,62 @@
 
             <span flex></span>
 
+            <md-button ng-click="showSearch = !showSearch" >
+              <md-icon md-font-set="material-icons" style="color:white">search</md-icon>
+            </md-button>
+
             <md-button ui-sref="registro" ng-click="!isLogin()" >
+              <span hide-xs hide-sm style="padding-right:10px">Registrate</span>
               <md-icon md-font-set="material-icons" style="color:white" >assignment</md-icon>
             </md-button>
 
             <md-button ui-sref="entrar" ng-click="!isLogin()">
+              <span hide-xs hide-sm style="padding-right:10px">Entra</span>
               <md-icon md-font-set="material-icons" style="color:white" >account_circle</md-icon>
             </md-button>
 
             <form ng-controller="LogoutController" ng-show="isLogin()">
+              <span hide-xs hide-sm style="padding-right:10px">Desconectar</span>
+              <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
+            </form>
+
+        </div>
+
+
+
+      </md-toolbar>
+
+      <md-toolbar ng-show="showSearch">
+
+        <div class="md-toolbar-tools" style="background-color:white">
+
+            <md-button flex="none" ng-click="showSearch = !showSearch">
+              <md-icon md-font-set="material-icons" style="color:#6d6d6c">arrow_back</md-icon>
+            </md-button>
+
+            <h3 md-header-title flex="none" style="color:#6d6d6c">Atrás</h3>
+
+            <md-input-container flex layout="row" style="margin-left:20px">
+              <label>&nbsp;</label>
+              <input  type="text" placeholder="Buscar...">
+            </md-input-container>
+
+            <md-button ng-click="showSearch = !showSearch" >
+              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >search</md-icon>
+            </md-button>
+
+            <md-button flex="none" ui-sref="registro" ng-click="!isLogin()" >
+              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Registrate</span>
+              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >assignment</md-icon>
+            </md-button>
+
+            <md-button flex="none" ui-sref="entrar" ng-click="!isLogin()">
+              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Entrar</span>
+              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >account_circle</md-icon>
+            </md-button>
+
+            <form ng-controller="LogoutController" ng-show="isLogin()">
+              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Desconectar</span>
               <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
             </form>
 
@@ -78,27 +125,45 @@
                     <h2 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h2>
                   </div>
 
-                  <div style="background-color:#7e7d7c;padding:2px">
+                  <div flex layout="row">
 
-                    <ui-gmap-google-map style="padding:0" center="map.center" zoom="map.zoom">
+                    <ui-gmap-google-map flex="100" style="padding:0" center="map.center" zoom="map.zoom">
                       <div ng-repeat="marker in markers">
                         <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
                       </div>
                     </ui-gmap-google-map>
 
+                    <div flex="none" ng-if="false" layout="column" style="background-color:#999795">
+                        <h3 md-header-title layout-padding style="color:white;text-align:center">Filtros</h3>
+                        <md-switch style="color:white;padding-left:10px">
+                          Barrera 1
+                        </md-switch>
+                        <md-switch style="color:white;padding-left:10px">
+                          Barrera 2
+                        </md-switch>
+                        <md-switch style="color:white;padding-left:10px">
+                          Barrera 3
+                        </md-switch>
+                    </div>
+
                   </div>
 
-                  <div flex="none" layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
-                    <md-button flex="none" style="color:white">
-                      <md-icon md-font-set="material-icons" style="color:white">near_me</md-icon>
+
+
+                  <div flex layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
+                    <md-button flex="none" style="color:white" layout="fill">
+                      <md-icon flex md-font-set="material-icons" style="color:white">near_me</md-icon>
+                      <span flex hide-xs>Centrar en mí</span>
                     </md-button>
                     <md-divider></md-divider>
-                    <md-button flex="none" style="color:white">
-                      <md-icon md-font-set="material-icons" style="color:white">add</md-icon>
+                    <md-button flex="none" style="color:white" layout="fill">
+                      <md-icon flex md-font-set="material-icons" style="color:white">add</md-icon>
+                      <span flex hide-xs>Añadir denuncia</span>
                     </md-button>
                     <md-divider></md-divider>
-                    <md-button flex="none" style="color:white">
-                      <md-icon md-font-set="material-icons" style="color:white">add_a_photo</md-icon>
+                    <md-button flex="none" layout="fill" style="color:white">
+                      <md-icon flexmd-font-set="material-icons" style="color:white">equalizer</md-icon>
+                      <span flex hide-xs>Filtros</span>
                     </md-button>
                   </div>
 
@@ -110,18 +175,28 @@
                   <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
                 </div>
 
-                <div flex="100" layout="column" style="background-color:#999795;padding:0">
+                    <md-list flex style="background-color:#999795;padding:0">
+                        <md-list-item >
+                            <div flex layout="row" style="padding-top:10px; padding-bottom:10px;height:90px">
+                                <div flex="10" style="background-color:#333334;padding:10px">
 
-                    <div flex="none" layout="row" style="padding-top:10px; padding-bottom:10px;height:90px">
-                        <div flex="10" style="background-color:#333334;padding:10px">
+                                </div>
+                                <div flex="100" style="background-color:#6d6d6c;padding:10px;color:white">
+                                      Pequeña descripción
+                                </div>
 
-                        </div>
-                        <div flex="90" style="background-color:#6d6d6c;padding:10px;color:white">
-                            Pequeña descripción
-                        </div>
-                    </div>
+                                <md-button flex="none" class="md-fab" style="background-color:#7e7d7c;">
+                                  <md-icon md-font-set="material-icons" style="height:auto">place</md-icon>
+                                </md-button>
 
-                </div>
+                                <md-button flex="none" class="md-fab" style="background-color:#7e7d7c;">
+                                  <md-icon md-font-set="material-icons" style="height:auto">report</md-icon>
+                                </md-button>
+
+                              </div>
+                        </md-list-item>
+
+                    </md-list>
 
               </div>
 
