@@ -6,7 +6,6 @@ mongoose.connect('mongodb://dotGen:h4g18042015@ds035485.mongolab.com:35485/volca
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-console.log('Mongo conectado');
 });
 
 var complainSchema = mongoose.Schema
@@ -99,17 +98,16 @@ function updateUser(find, changes, callback, errorCallback)
 };
 
 function deleteUser(data, callback, errorCallback)
-{Users.findOneAndRemove(data, function (err, found){
+{
+  Users.findOneAndRemove(data, function (err, found){
       if (err){
         errorCallback(err);
       }else{
         callback(found);
       }
     }
-  )
-};
+)};
 
-deleteUser(jfind, function(found){console.log(found)},function(){console.log("mal")});
 
 function getUserByEmail(email)
 {
