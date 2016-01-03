@@ -2,17 +2,22 @@
 
   var app = angular.module("app");
 
-  app.factory("ComplaintsService", [ "$http", function ($http) {
+  app.factory("ComplaintsService", [ "$http", "$q", function ($http, $q) {
 
       return {
 
         getAllComplaints : function () {
+
+          var deferred = $q.defer()
+
           $http.get('/denuncias')
           .then(function (data) {
-            return data;
+            return deferred.resolve(data.data);
           }, function (err) {
-            return err;
+            return deferred.reject(err);
           });
+
+          return deferred.promise;
         }
 
       };

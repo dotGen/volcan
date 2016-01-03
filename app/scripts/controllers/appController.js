@@ -2,17 +2,18 @@
 
   var app =  angular.module("app");
 
-  app.controller("AppController", ["$scope", "AuthenticationService", "$mdSidenav", "GravatarService", "ComplaintsService", function ( $scope, AuthenticationService, $mdSidenav, GravatarService, ComplaintsService) {
+  app.controller("AppController", ["$scope", "AuthenticationService", "$mdSidenav", "GravatarService", "ComplaintsService", "$log", function ( $scope, AuthenticationService, $mdSidenav, GravatarService, ComplaintsService, $log) {
 
     $scope.showSearch = false;
 
     $scope.user = AuthenticationService.getCurrentUser();
-
-    $scope.complaints = ComplaintsService.getAllComplaints();
-
-    $scope.currentComplaint = {};
-
     $scope.user.avatar = GravatarService.getAvatar($scope.user.email);
+
+    ComplaintsService.getAllComplaints().then(function (complaints) {
+      $scope.complaints = complaints;
+    }, function (err) {
+      $log.log("Error al cargar las denuncias");
+    });
 
     $scope.isLogin = function () {
         return $scope.user.authenticate == true;

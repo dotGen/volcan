@@ -56,10 +56,10 @@ function getComplain(data, callback, errorCallback)
   }else{
     callback(foundComplain);
   }
-  })
+})
 }
 
-function getAllComplains(callback, errorCallback)
+function getAllComplains (callback, errorCallback)
 {
   Complains.find(function(err, foundComplains){
     if(err){
@@ -70,8 +70,6 @@ function getAllComplains(callback, errorCallback)
   })
 
 }
-
-getAllComplains(function(found){console.log(found)}, function(err){console.log(err)});
 
 function deleteComplain(data, callback, errorCallback)
 {
@@ -137,5 +135,6 @@ module.exports = {
   addUser : addUser,
   updateUser: updateUser,
   deleteUser : deleteUser,
-  getUser : getUser
+  getUser : getUser,
+  getAllComplains: getAllComplains
 };

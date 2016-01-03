@@ -67,7 +67,7 @@ app.use(function(req, res, next) {
   //Devuelve las denuncias
 
 app.get('/denuncias', function (req, res) {
-  database.getComplain(
+  database.getAllComplains(
     function (complaints) {
     res.json(complaints);
   } , function (err) {
