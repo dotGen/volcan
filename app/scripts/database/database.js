@@ -35,37 +35,38 @@ var userSchema = mongoose.Schema
 var Complains = mongoose.model('denuncias', complainSchema);
 var Users = mongoose.model('usuarios', userSchema);
 
-function addComplain(gpsPosition, address, description, photo, audio) {
-  var newComplain = new Complains
-  ({
-    gpsPosition : gpsPosition,
-    address : address,
-    description : description,
-    photo : photo,
-    audio : audio
-  });
+function addComplain(complain, callback, errorCallback) {
+  var newComplain = new Complains(complain);
 
-  newComplain.save( function (err)
+  newComplain.save( function (err, savedProduct)
   {
-    if (err) return console.error(err);
+    if (err){
+      errorCallback(err);
+    }else{
+      callback(savedProduct);
+    }
   });
 }
 
-function getComplain(gpsPosition)
+function getComplain(data, callback, errorCallback)
 {
-  Complains.findOne({ 'gpsPosition': gpsPosition }, 'address likes', function (err, foundComplain) {
-  if (err) return handleError(err);
-  return foundComplain;
+  Complains.findOne(data, function (err, foundComplain) {
+  if (err){
+    errorCallback(err);
+  }else{
+    callback(foundComplain);
+  }
   })
 }
 
-function deleteComplain(gpsPosition){
-  Complains.remove
-  (
-    {'gpsPosition': gpsPosition }, function (err){
-      if (err) return handleError(err);
-    }
-  )
+function deleteComplain(data){
+  Complain.findOneAndRemove(data, function (err, deletedComplain){
+      if (err){
+        errorCallback(err);
+      }else{
+        callback(deletedComplain);
+      }
+  }
 }
 
 function addUser(obj, callback, errorCallback)
@@ -96,34 +97,21 @@ function updateUser(find, changes, callback, errorCallback)
 
 function deleteUser(data, callback, errorCallback)
 {
-  Users.findOneAndRemove(data, function (err, found){
+  Users.findOneAndRemove(data, function (err, deletedUser){
       if (err){
         errorCallback(err);
       }else{
-        callback(found);
+        callback(deletedUser);
       }
-    }
-
+  }
 )};
 
-function getUserByEmail(email, callback, errorCallback)
->>>>>>> 25cad846c5188749ce3e90eacc3d33a1fd30f734
+function getUser(data, callback, errorCallback)
 {
-  Users.findOne({ 'email' : email }, 'email password name lastName age', function (err, foundUser) {
+  Users.findOne(data, function (err, foundUser) {
     if (err) {
       errorCallback(err);
     } else {
-      callback(foundUser);
-    }
-  })
-}
-
-function getUserByToken(token, callback, errorCallback)
-{
-  Users.findOne({ 'token': token }, 'email name lastName age', function (err, foundUser) {
-    if (err) {
-      errorCallback(errorCallback);
-    }  else {
       callback(foundUser);
     }
   })
@@ -133,6 +121,6 @@ module.exports = {
   addUser : addUser,
   updateUser: updateUser,
   deleteUser : deleteUser,
-  getUserByEmail : getUserByEmail,
-  getUserByToken : getUserByToken
+  getUser : getUser
+
 };
