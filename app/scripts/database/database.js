@@ -10,7 +10,8 @@ db.once('open', function() {
 
 var complainSchema = mongoose.Schema
 ({
-    gpsPosition: {type: String, unique:true},
+    latitude : Number,
+    longitude : Number,
     address: String,
     likes : Number,
     description: String,
@@ -20,7 +21,7 @@ var complainSchema = mongoose.Schema
     photo : String,
     audio : String
 });
-
+complainSchema.index({latitude:1, longitude:1},{unique:true});
 var userSchema = mongoose.Schema
 ({
     email : String,
@@ -47,7 +48,7 @@ function addComplain(complain, callback, errorCallback) {
   });
 }
 
-addComplain({"gpsPosition":"45,-73"}, function(){}, function(){});
+addComplain({"latitude":46, "longitude":-73}, function(g){console.log("pasó")},function(g){console.log(g)})
 
 function getComplain(data, callback, errorCallback)
 {
