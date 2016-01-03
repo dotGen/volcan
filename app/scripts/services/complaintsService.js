@@ -6,39 +6,12 @@
 
       return {
 
-        createComplaint : function (complaint) {
-            $http.post('', complaint)
-            .then(function (data) {
-
-            }, function (err) {
-
-            });
-        },
-
         getAllComplaints : function () {
-          $http.get('')
+          $http.get('/denuncias')
           .then(function (data) {
-
+            return data;
           }, function (err) {
-
-          });
-        },
-
-        deleteComplaint : function (id) {
-          $http.delete(''+ id)
-          .then(function (data) {
-
-          }, function (err) {
-
-          });
-        },
-
-        updateComplaint : function (id, complaint) {
-          $http.put(''+ id, complaint)
-          .then(function (data) {
-
-          }, function (err) {
-
+            return err;
           });
         }
 

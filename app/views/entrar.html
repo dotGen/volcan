@@ -6,7 +6,7 @@
 
             <md-input-container>
               <label>Correo electrónico</label>
-              <input ng-model="new_user.email" name="email" type="email" required>
+              <input ng-model="user.email" name="email" type="email" required>
               <div ng-messages="projectForm.email.$error" ng-hide="projectForm.email.$pristine" multiple md-auto-hide="false">
                 <div ng-message="required">
                   El email es un campo obligatorio.
@@ -19,7 +19,7 @@
 
             <md-input-container>
               <label>Contraseña</label>
-              <input ng-model="new_user.password" name="password" type="password" minlength="5" required>
+              <input ng-model="user.password" name="password" type="password" minlength="5" required>
               <div ng-messages="projectForm.password.$error" ng-hide="projectForm.password.$pristine" ng-show="projectForm.password.$touched" multiple md-auto-hide="false">
                 <div ng-message="required" >
                   La contraseña es un campo obligatorio.
@@ -35,7 +35,6 @@
                   CONECTARME YA
               </md-button>
             </div>
-
             <a ui-sref="reenvio">¿Has olvidado la contraseña?</a>
 
         </md-content>

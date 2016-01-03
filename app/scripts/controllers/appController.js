@@ -2,13 +2,13 @@
 
   var app =  angular.module("app");
 
-  app.controller("AppController", ["$scope", "AuthenticationService", "$mdSidenav", "GravatarService", function ( $scope, AuthenticationService, $mdSidenav, GravatarService) {
+  app.controller("AppController", ["$scope", "AuthenticationService", "$mdSidenav", "GravatarService", "ComplaintsService", function ( $scope, AuthenticationService, $mdSidenav, GravatarService, ComplaintsService) {
 
     $scope.showSearch = false;
 
     $scope.user = AuthenticationService.getCurrentUser();
 
-    $scope.complaints = [];
+    $scope.complaints = ComplaintsService.getAllComplaints();
 
     $scope.currentComplaint = {};
 

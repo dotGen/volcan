@@ -104,8 +104,8 @@ function deleteUser(data, callback, errorCallback)
       }else{
         callback(deletedUser);
       }
-  }
-)};
+  });
+}
 
 function getUser(data, callback, errorCallback)
 {
@@ -115,7 +115,7 @@ function getUser(data, callback, errorCallback)
     } else {
       callback(foundUser);
     }
-  })
+  });
 }
 
 module.exports = {
@@ -123,5 +123,4 @@ module.exports = {
   updateUser: updateUser,
   deleteUser : deleteUser,
   getUser : getUser
-
 };

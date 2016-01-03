@@ -42,9 +42,6 @@
         });
       },
 
-
-
-
       updateUser : function (id, user) {
         $http.put(''+id, user)
         .then(function (res) {

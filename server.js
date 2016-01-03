@@ -64,17 +64,23 @@ app.use(function(req, res, next) {
 
 //Rutas
 
+  //Devuelve las denuncias
+
+app.get('/denuncias', function (req, res) {
+  database.getComplain(
+    function (complaints) {
+    res.json(complaints);
+  } , function (err) {
+    res.json(err);
+  });
+});
+
   //El usuario intenta loguearse.
 
 app.post('/entrar', function (req, res) {
-
-  var email = req.body.email;
-  var password = req.body.password;
-
-  database.getUserByEmail(email
+  database.getUser({'email' : req.body.email}
   , function (user) {
-    console.log(user.password);
-    if (password == user.password) {
+    if (req.body.password == user.password) {
       res.json({
         success: true,
         user: user,
@@ -87,7 +93,6 @@ app.post('/entrar', function (req, res) {
       });
     }
   }, function (err) {
-    console.log("error");
     res.json({
       success: false,
       error : 'Usuario y/o Contraseña incorrecto :'+err
@@ -99,16 +104,7 @@ app.post('/entrar', function (req, res) {
   //Un usuario intenta registrarse.
 
 app.post('/registro', function (req, res) {
-
-  //Cogemos los parametros del request.
-
-  var name = req.body.name;
-  var email = req.body.email;
-  var password = req.body.password;
-
-  //Agregamos el usuario. addUser se encarga de ver si existe ese usuario o no.
-
-  database.addUser({email : email, password : password.toString(), name: name, token: jwt.sign({ email : email, name: name},  config.secret_jwt_key, {expiresIn : '2h'})}
+  database.addUser({email : req.body.email, password : req.body.password.toString(), name: req.body.name, token: jwt.sign({ email : req.body.email, name: req.body.name},  config.secret_jwt_key, {expiresIn : '2h'})}
   , function (user) {
     res.json({
       success: true,
@@ -126,7 +122,7 @@ app.post('/registro', function (req, res) {
   //El usuario intenta entrar a su perfil
 
 app.get('/mi-perfil', checkIfIsAuthorized, function (req, res) {
-  database.getUserByToken({ token: req.token }
+  database.getUser({ token: req.token }
   , function (user) {
     res.json({
       success: true,
