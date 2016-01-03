@@ -129,7 +129,7 @@
 
                     <ui-gmap-google-map flex="100" style="padding:0" center="{latitude:45,longitude:-73}" zoom="8">
                       <div ng-repeat="complaint in complaints">
-                        <ui-gmap-marker coords="{latitude : {{complaint.longitude}}, longitude : {{complaint.latitude}}}" idkey="complaint._id"></ui-gmap-marker>
+                        <ui-gmap-marker coords="{latitude: complaint.latitude, longitude: complaint.longitude}" idkey="complaint._id"></ui-gmap-marker>
                       </div>
                     </ui-gmap-google-map>
 
@@ -147,8 +147,6 @@
                     </div>
 
                   </div>
-
-
 
                   <div flex layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
                     <md-button flex="none" style="color:white" layout="fill">
