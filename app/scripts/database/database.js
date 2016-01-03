@@ -35,8 +35,7 @@ var userSchema = mongoose.Schema
 var Complains = mongoose.model('denuncias', complainSchema);
 var Users = mongoose.model('usuarios', userSchema);
 
-function addComplain(gpsPosition, address, description, photo, audio)
-{
+function addComplain(gpsPosition, address, description, photo, audio) {
   var newComplain = new Complains
   ({
     gpsPosition : gpsPosition,
@@ -50,7 +49,7 @@ function addComplain(gpsPosition, address, description, photo, audio)
   {
     if (err) return console.error(err);
   });
-};
+}
 
 function getComplain(gpsPosition)
 {
@@ -58,7 +57,7 @@ function getComplain(gpsPosition)
   if (err) return handleError(err);
   return foundComplain;
   })
-};
+}
 
 function deleteComplain(gpsPosition){
   Complains.remove
@@ -67,7 +66,7 @@ function deleteComplain(gpsPosition){
       if (err) return handleError(err);
     }
   )
-};
+}
 
 function addUser(obj, callback, errorCallback)
 {
@@ -81,9 +80,7 @@ function addUser(obj, callback, errorCallback)
       callback(product);
     }
   });
-};
-var jfind={"email":"email@cambiado.com"};
-var json={"email":"email@cambiado.com"};
+}
 
 function updateUser(find, changes, callback, errorCallback)
 {
@@ -95,7 +92,7 @@ function updateUser(find, changes, callback, errorCallback)
     }
   });
 
-};
+}
 
 function deleteUser(data, callback, errorCallback)
 {
@@ -106,20 +103,36 @@ function deleteUser(data, callback, errorCallback)
         callback(found);
       }
     }
+
 )};
 
+function getUserByEmail(email, callback, errorCallback)
+>>>>>>> 25cad846c5188749ce3e90eacc3d33a1fd30f734
+{
+  Users.findOne({ 'email' : email }, 'email password name lastName age', function (err, foundUser) {
+    if (err) {
+      errorCallback(err);
+    } else {
+      callback(foundUser);
+    }
+  })
+}
 
-function getUserByEmail(email)
+function getUserByToken(token, callback, errorCallback)
 {
-  Complains.findOne({ 'email': email }, 'email name lastName age', function (err, foundUser) {
-  if (err) return handleError(err);
-  return foundUser;
+  Users.findOne({ 'token': token }, 'email name lastName age', function (err, foundUser) {
+    if (err) {
+      errorCallback(errorCallback);
+    }  else {
+      callback(foundUser);
+    }
   })
-};
-function getUserByToken(token)
-{
-  Complains.findOne({ 'token': token }, 'email name lastName age', function (err, foundUser) {
-  if (err) return handleError(err);
-  return foundUser;
-  })
+}
+
+module.exports = {
+  addUser : addUser,
+  updateUser: updateUser,
+  deleteUser : deleteUser,
+  getUserByEmail : getUserByEmail,
+  getUserByToken : getUserByToken
 };

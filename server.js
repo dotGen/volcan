@@ -71,8 +71,9 @@ app.post('/entrar', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
 
-  database.getUserByEmail({email : email}
+  database.getUserByEmail(email
   , function (user) {
+    console.log(user.password);
     if (password == user.password) {
       res.json({
         success: true,
@@ -82,10 +83,11 @@ app.post('/entrar', function (req, res) {
     } else {
       res.json({
         success: false,
-        error : 'Usuario y/o Contraseña incorrecto : '+err
+        error : 'Usuario y/o Contraseña incorrecto : '
       });
     }
   }, function (err) {
+    console.log("error");
     res.json({
       success: false,
       error : 'Usuario y/o Contraseña incorrecto :'+err
@@ -104,11 +106,9 @@ app.post('/registro', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
 
-  console.log("Email :"+req.body.email);
-
   //Agregamos el usuario. addUser se encarga de ver si existe ese usuario o no.
 
-  database.addUser({email : email, password : password, name: name, token: jwt.sign(user, process.env.JWT_SECRET | config.secret_jwt_key, {expiresIn : '2h'})}
+  database.addUser({email : email, password : password.toString(), name: name, token: jwt.sign({ email : email, name: name},  config.secret_jwt_key, {expiresIn : '2h'})}
   , function (user) {
     res.json({
       success: true,
