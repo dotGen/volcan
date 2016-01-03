@@ -10,7 +10,7 @@ db.once('open', function() {
 
 var complainSchema = mongoose.Schema
 ({
-    gpsPosition: String,
+    gpsPosition: {latitude: Number, longitude: Number},
     address: String,
     likes : Number,
     description: String,
