@@ -59,14 +59,15 @@ function getComplain(data, callback, errorCallback)
   })
 }
 
-function deleteComplain(data){
+function deleteComplain(data, callback, errorCallback)
+{
   Complain.findOneAndRemove(data, function (err, deletedComplain){
       if (err){
         errorCallback(err);
       }else{
         callback(deletedComplain);
       }
-  }
+  })
 }
 
 function addUser(obj, callback, errorCallback)
