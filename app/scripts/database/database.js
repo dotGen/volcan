@@ -9,7 +9,7 @@ db.once('open', function() {
   console.log("Conexión establecida con Mongo.");
 });
 
-var complainSchema = mongoose.Schema
+var complaintSchema = mongoose.Schema
 ({
     latitude : Number,
     longitude : Number,
@@ -23,7 +23,7 @@ var complainSchema = mongoose.Schema
     audio : String
 });
 
-complainSchema.index({latitude:1, longitude:1},{unique:true});
+complaintSchema.index({latitude:1, longitude:1},{unique:true});
 
 var userSchema = mongoose.Schema
 ({
@@ -35,12 +35,12 @@ var userSchema = mongoose.Schema
     profilePhoto : String
 });
 
-var Complains = mongoose.model('denuncias', complainSchema);
+var Complaints = mongoose.model('denuncias', complaintSchema);
 var Users = mongoose.model('usuarios', userSchema);
 
-function addComplain(complain, callback, errorCallback) {
-  var newComplain = new Complains(complain);
-  newComplain.save( function (err, savedProduct)
+function addComplaint(complaint, callback, errorCallback) {
+  var newComplaint = new Complaints(complaint);
+  newComplaint.save( function (err, savedProduct)
   {
     if (err){
       errorCallback(err);
@@ -50,35 +50,35 @@ function addComplain(complain, callback, errorCallback) {
   });
 }
 
-function getComplain(data, callback, errorCallback)
+function getComplaint(data, callback, errorCallback)
 {
-  Complains.findOne(data, function (err, foundComplain) {
+  Complaints.findOne(data, function (err, foundComplaint) {
   if (err){
     errorCallback(err);
   }else{
-    callback(foundComplain);
+    callback(foundComplaint);
   }
 })
 }
 
-function getAllComplains (callback, errorCallback)
+function getAllComplaints (callback, errorCallback)
 {
-  Complains.find(function(err, foundComplains){
+  Complaints.find(function(err, foundComplaints){
     if(err){
       errorCallback(err);
     }else{
-      callback(foundComplains);
+      callback(foundComplaints);
     }
   })
 }
 
-function deleteComplain(data, callback, errorCallback)
+function deleteComplaint(data, callback, errorCallback)
 {
-  Complain.findOneAndRemove(data, function (err, deletedComplain){
+  Complaint.findOneAndRemove(data, function (err, deletedComplaint){
       if (err){
         errorCallback(err);
       }else{
-        callback(deletedComplain);
+        callback(deletedComplaint);
       }
   })
 }
@@ -137,8 +137,8 @@ module.exports = {
   updateUser: updateUser,
   deleteUser : deleteUser,
   getUser : getUser,
-  getAllComplains: getAllComplains,
-  addComplain : addComplain,
-  deleteComplain : deleteComplain,
-  getComplain : getComplain
+  getAllComplaints: getAllComplaints,
+  addComplaint : addComplaint,
+  deleteComplaint : deleteComplaint,
+  getComplaint : getComplaint
 };
