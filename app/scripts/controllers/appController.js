@@ -29,6 +29,8 @@
       click : function (map, event, args) {
         $scope.addComplainForm = true;
         $scope.$apply();
+        $scope.newComplaint.latitude =  args[0].latLng.G;
+        $scope.newComplaint.longitude =  args[0].latLng.K;
       }
 
     };

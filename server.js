@@ -66,13 +66,18 @@ app.use(function(req, res, next) {
 //Rutas
 
 app.post('/denuncias/añadir', function (req, res) {
-  database.addComplaint({});
+  database.addComplaint({description : req.body.description, latitude: req.body.latitude, longitude: req.body.longitude}
+  , function (complaint) {
+      res.jon(complaint);
+  }, function (error) {
+      res.json(error);
+  });
 });
 
   //Devuelve las denuncias
 
 app.get('/denuncias', function (req, res) {
-  database.getAllComplains(
+  database.getAllComplaints(
     function (complaints) {
     res.json(complaints);
   } , function (err) {
