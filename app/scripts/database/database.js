@@ -6,6 +6,7 @@ mongoose.connect('mongodb://dotGen:h4g18042015@ds035485.mongolab.com:35485/volca
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
+  console.log("Conexión establecida con Mongo.");
 });
 
 var complainSchema = mongoose.Schema
@@ -21,7 +22,9 @@ var complainSchema = mongoose.Schema
     photo : String,
     audio : String
 });
+
 complainSchema.index({latitude:1, longitude:1},{unique:true});
+
 var userSchema = mongoose.Schema
 ({
     email : String,
@@ -29,7 +32,6 @@ var userSchema = mongoose.Schema
     name : String,
     lastName : String,
     age : Number,
-    token : String,
     profilePhoto : String
 });
 
@@ -47,8 +49,6 @@ function addComplain(complain, callback, errorCallback) {
     }
   });
 }
-
-addComplain({"latitude":46, "longitude":-73}, function(g){console.log("pasó")},function(g){console.log(g)})
 
 function getComplain(data, callback, errorCallback)
 {

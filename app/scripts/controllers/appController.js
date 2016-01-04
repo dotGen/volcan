@@ -11,6 +11,7 @@
 
     ComplaintsService.getAllComplaints().then(function (complaints) {
       $scope.complaints = complaints;
+      $log.log(complaints[0]);
     }, function (err) {
       $log.log("Error al cargar las denuncias");
     });

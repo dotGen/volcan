@@ -29,15 +29,16 @@ app.use("/scripts/lodash", express.static(__dirname + "/node_modules/angular-goo
 app.use("/scripts/angular-simple-logger", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/angular-simple-logger/dist"));
 app.use("/scripts/angular-ui-router", express.static(__dirname + "/node_modules/angular-ui-router/release"));
 
-//Comprobamos que existe el usuario esta autenticado.
+//Middleware para comprobar si el token es auténtico.
 
 var checkIfIsAuthorized = function (req, res, next) {
-    var bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== 'undefined') {
-      var bearer = bearerHeader.split(" ");
-      bearerToken = bearer[1];
-      req.token = bearerToken;
-      next();
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (token) {
+      jwt.verify(token, config.secret_jwt_key, function(err, decoded){
+          if(err) res.send({error:true, message:'Token no valido o no existe'});
+          req.decoded = decoded;
+          next();
+        });
     } else {
       res.send(403);
     }
@@ -71,7 +72,9 @@ app.get('/denuncias', function (req, res) {
     function (complaints) {
     res.json(complaints);
   } , function (err) {
-    res.json(err);
+    res.json({
+      error : 'Ha ocurrido un error al enviar las denuncias '
+    });
   });
 });
 
@@ -80,22 +83,18 @@ app.get('/denuncias', function (req, res) {
 app.post('/entrar', function (req, res) {
   database.getUser({'email' : req.body.email}
   , function (user) {
-    if (req.body.password == user.password) {
+    if (req.body.password != user.password) {
       res.json({
-        success: true,
-        user: user,
-        token: user.token
-      });
-    } else {
-      res.json({
-        success: false,
         error : 'Usuario y/o Contraseña incorrecto : '
       });
+    } else {
+        res.json({
+          token: jwt.sign({ email : user.email, name: user.name},  config.secret_jwt_key, {expiresIn : '2h'})
+        });
     }
   }, function (err) {
     res.json({
-      success: false,
-      error : 'Usuario y/o Contraseña incorrecto :'+err
+      error : err
     });
   });
 
@@ -104,38 +103,19 @@ app.post('/entrar', function (req, res) {
   //Un usuario intenta registrarse.
 
 app.post('/registro', function (req, res) {
-  database.addUser({email : req.body.email, password : req.body.password.toString(), name: req.body.name, token: jwt.sign({ email : req.body.email, name: req.body.name},  config.secret_jwt_key, {expiresIn : '2h'})}
+  database.addUser({email : req.body.email, password : req.body.password.toString(), name: req.body.name}
   , function (user) {
     res.json({
-      success: true,
-      user: user,
       token: user.token
     });
   }, function (err) {
     res.json({
-      success: false,
-      error : 'Error al agregar usuario : '+err
+      error : err
     });
   });
 });
 
-  //El usuario intenta entrar a su perfil
-
-app.get('/mi-perfil', checkIfIsAuthorized, function (req, res) {
-  database.getUser({ token: req.token }
-  , function (user) {
-    res.json({
-      success: true,
-      user: user,
-      token: user.token
-    });
-  }, function (err) {
-    res.json({
-      success: false,
-      error : 'Token de usuario no válido : '+err
-    });
-  });
-});
+  //Enviamos la plantilla.
 
 app.get('*', function (req, res) {
   res.sendFile(__dirname + '/app/plantilla.html');

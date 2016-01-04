@@ -2,7 +2,7 @@
 
   var app =  angular.module("app");
 
-  app.factory("AuthenticationService", ["$http", "$localStorage", "$log",  function ($http, $localStorage, $log) {
+  app.factory("AuthenticationService", ["$http", "$localStorage", "$q", function ($http, $localStorage, $q) {
 
     function urlBase64Decode(str) {
         var output = str.replace('-', '+').replace('_', '/');
@@ -16,7 +16,7 @@
                 output += '=';
                 break;
             default:
-                throw 'Illegal base64url string!';
+                throw 'Base64 decode error!';
         }
         return window.atob(output);
     }
@@ -25,33 +25,30 @@
       return CryptoJS.SHA512(str).toString();
     }
 
-
     return {
 
-      signin : function  (user_form, callback) {
-                    $http.post('/entrar', { email : user_form.email, password : encryptWithSHA512(user_form.password)}
-                    , {headers: {'Authorization': $localStorage.token}})
+      signin : function  (user_form) {
+                    var deferred = $q.defer();
+                    $http.post('/entrar', { email : user_form.email, password : encryptWithSHA512(user_form.password)})
                     .then(function (res) {
-                      if (res.data.success) {
                         $localStorage.token = res.data.token;
-                        callback();
-                      }
-                    }, function () {
-                      $log.log("Failed to signin");
+                        deferred.resolve();
+                    }, function (err) {
+                      deferred.reject(err);
                     });
+                    return deferred.promise;
                 },
 
-      signup : function  (user_form, callback) {
-                  $http.post('/registro', { email : user_form.email, name: user_form.name, password : encryptWithSHA512(user_form.password)}
-                  , { headers: {'Authorization': $localStorage.token}})
+      signup : function  (user_form) {
+                  var deferred = $q.defer();
+                  $http.post('/registro', { email : user_form.email, name: user_form.name, password : encryptWithSHA512(user_form.password)})
                   .then(function (res) {
-                    if (res.data.success) {
                       $localStorage.token = res.data.token;
-                      callback();
-                    }
-                  }, function () {
-                    $log.log("Failed to signup");
+                      deferred.resolve();
+                  }, function (err) {
+                    deferred.reject();
                   });
+                  return deferred.promise;
                 },
 
       signout : function (callback) {

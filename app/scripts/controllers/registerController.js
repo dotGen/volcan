@@ -2,19 +2,21 @@
 
   var app =  angular.module("app");
 
-  app.controller("RegisterController", ["$scope", "AuthenticationService", "$state", function ($scope, AuthenticationService, $state) {
+  app.controller("RegisterController", ["$scope", "AuthenticationService", "$state", "$log", function ($scope, AuthenticationService, $state, $log) {
 
     $scope.new_user = {};
 
     $scope.submit = function () {
-        AuthenticationService.signup($scope.new_user, function () {
-          $state.go("principal");
+        AuthenticationService.signup($scope.new_user).then(function () {
+          $state.go("principal.mapa");
+        }, function (err) {
+          $log.log(err);
         });
-        $scope.new_user = {};
+
     };
 
     $scope.submit_anonym = function () {
-        $state.go("principal");
+        $state.go("principal.mapa");
     };
 
   }]);

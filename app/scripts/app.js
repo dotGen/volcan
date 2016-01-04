@@ -16,7 +16,7 @@
 
   app.config(function ($stateProvider, $urlRouterProvider) {
 
-      $urlRouterProvider.otherwise("principal");
+      $urlRouterProvider.otherwise("principal/mapa");
 
       $stateProvider
         .state('entrar', {
@@ -33,8 +33,17 @@
 
         })
         .state('principal', {
-          url : "/",
+          abstract : true,
+          url :  "/principal",
           templateUrl : "views/principal.html"
+        })
+        .state('principal.mapa', {
+          url :  "/mapa",
+          templateUrl : "views/mapa.html"
+        })
+        .state('principal.perfil', {
+          url :  "/perfil",
+          templateUrl : "views/perfil.html"
         });
 
   });
