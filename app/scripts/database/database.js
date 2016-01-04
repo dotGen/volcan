@@ -138,7 +138,7 @@ module.exports = {
   deleteUser : deleteUser,
   getUser : getUser,
   getAllComplains: getAllComplains,
-  addComplaint : addComplaint,
+  addComplain : addComplain,
   deleteComplain : deleteComplain,
   getComplain : getComplain
 };
