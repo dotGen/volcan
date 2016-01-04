@@ -65,6 +65,10 @@ app.use(function(req, res, next) {
 
 //Rutas
 
+app.post('/denuncias/añadir', function (req, res) {
+  database.addComplaint({});
+});
+
   //Devuelve las denuncias
 
 app.get('/denuncias', function (req, res) {

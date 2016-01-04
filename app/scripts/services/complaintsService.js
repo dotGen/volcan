@@ -8,13 +8,25 @@
 
         getAllComplaints : function () {
 
-          var deferred = $q.defer()
+          var deferred = $q.defer();
 
           $http.get('/denuncias')
           .then(function (data) {
-            return deferred.resolve(data.data);
+            deferred.resolve(data.data);
           }, function (err) {
-            return deferred.reject(err);
+            deferred.reject(err);
+          });
+
+          return deferred.promise;
+        },
+
+        addComplaint : function (complaint) {
+          var deferred = $q.defer();
+          $http.post('/denuncias/añadir', complaint)
+          .then(function (data) {
+            deferred.resolve(data.data);
+          }, function (err) {
+            deferred.reject(err);
           });
 
           return deferred.promise;
