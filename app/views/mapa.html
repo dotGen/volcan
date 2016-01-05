@@ -7,7 +7,7 @@
             <div flex="none" style="background-color:#7e7d7c;">
               <h3 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h3>
             </div>
-            <div flex layout="row">
+            <div flex layout="row" ng-controller="MapController">
               <ui-gmap-google-map events="map_events" flex="100" style="padding:0" center="{latitude:45,longitude:-73}" zoom="8">
                 <div ng-repeat="complaint in complaints">
                   <ui-gmap-marker events="marker_events" coords="{latitude: complaint.latitude, longitude: complaint.longitude}" idkey="complaint._id"></ui-gmap-marker>
@@ -55,7 +55,7 @@
               <input type="text" ng-model="newComplaint.description">
               <input type="file" ng-model="newComplaint.audio">
               <input type="file" ng-model="newComplaint.photo">
-              <md-button ng-click="addComplain()" style="background-color:#7e7d7c;color:white">Subir denuncia<md-button>
+              <md-button ng-click="addComplaint()" style="background-color:#7e7d7c;color:white">Subir denuncia<md-button>
             </form>
           </div>
         </div>
@@ -98,7 +98,7 @@
           </div>
         </div>
         <div flex="none" style="background-color:#999795;">
-            <img src="{{currentComplaint.image}}">
+            <img src="{{currentComplaint.photo}}">
         </div>
         <div flex="none" style="background-color:#6d6d6c;">
             <p>{{currentComplaint.description}}</p>

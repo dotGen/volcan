@@ -65,16 +65,32 @@ app.use(function(req, res, next) {
 
 //Rutas
 
-app.post('/denuncias/añadir', function (req, res) {
+app.post('/denuncias/denunciar', function (req, res) {
   database.addComplaint({description : req.body.description, latitude: req.body.latitude, longitude: req.body.longitude}
   , function (complaint) {
-      res.jon(complaint);
+      res.json(complaint);
   }, function (error) {
+      console.log(error);
       res.json(error);
   });
 });
 
-  //Devuelve las denuncias
+  //Devuelve la denuncia en una posicion
+
+app.get('/denuncias/:position', function (req, res) {
+  database.getComplaint({longitude : req.params.position.split(',')[0], latitude : req.params.position.split(',')[1]},
+    function (complaint) {
+      console.log(complaint);
+      res.json(complaint);
+  } , function (err) {
+      console.log("Mal");
+      res.json({
+        error : 'Ha ocurrido un error al enviar las denuncias '
+      });
+  });
+});
+
+  //Devuelve todas las denuncias
 
 app.get('/denuncias', function (req, res) {
   database.getAllComplaints(

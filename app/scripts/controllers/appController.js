@@ -10,6 +10,7 @@
     $scope.user = AuthenticationService.getCurrentUser();
     $scope.user.avatar = GravatarService.getAvatar($scope.user.email);
 
+    $scope.newComplaint = {};
 
     ComplaintsService.getAllComplaints().then(function (complaints) {
       $scope.complaints = complaints;
@@ -17,28 +18,12 @@
       $log.log("Error al cargar las denuncias");
     });
 
-    $scope.marker_events = {
-      click :  function (marker, event, model, args) {
-        $scope.currentComplaint = {description : "latitude : "+marker.getPosition().G+" longitude: "+marker.getPosition().K};
-        $scope.$apply();
-      }
-    };
-
-    $scope.map_events = {
-
-      click : function (map, event, args) {
-        $scope.addComplainForm = true;
-        $scope.$apply();
-        $scope.newComplaint.latitude =  args[0].latLng.G;
-        $scope.newComplaint.longitude =  args[0].latLng.K;
-      }
-
-    };
-
     $scope.addComplaint = function () {
         ComplaintsService.addComplaint($scope.newComplaint)
         .then(function (addedComplaint) {
           $log.log("Denuncia añadida");
+          $scope.complaints.push(addedComplaint);
+          $scope.addComplainForm = false;
         }, function () {
           $log.log("Se ha producido un error al añadir la denuncia");
         });

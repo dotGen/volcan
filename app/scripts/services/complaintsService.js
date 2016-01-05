@@ -2,7 +2,7 @@
 
   var app = angular.module("app");
 
-  app.factory("ComplaintsService", [ "$http", "$q", function ($http, $q) {
+  app.factory("ComplaintsService", [ "$http", "$q", "$log", function ($http, $q, $log) {
 
       return {
 
@@ -22,7 +22,21 @@
 
         addComplaint : function (complaint) {
           var deferred = $q.defer();
-          $http.post('/denuncias/añadir', complaint)
+
+          $http.post('/denuncias/denunciar', complaint)
+          .then(function (data) {
+            deferred.resolve(data.data);
+          }, function (err) {
+            deferred.reject(err);
+          });
+
+          return deferred.promise;
+        },
+
+        getComplaint : function (position) {
+          var deferred = $q.defer();
+
+          $http.get('/denuncias/'+position.latitude+','+position.longitude)
           .then(function (data) {
             deferred.resolve(data.data);
           }, function (err) {
