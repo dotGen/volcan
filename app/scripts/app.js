@@ -30,7 +30,6 @@
         .state('reenvio', {
           url : "/reenvio",
           templateUrl: "views/reenvio.html"
-
         })
         .state('principal', {
           abstract : true,

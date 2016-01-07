@@ -2,65 +2,20 @@
 
   var app = angular.module("app");
 
-  app.factory("UserService", [ "$http", function ($http) {
+  app.factory("UserService", [ "$http", "AuthenticationService", function ($http, AuthenticationService) {
 
-    return {
+    var user = AuthenticationService.getCurrentUser();
 
-      createUser : function (user) {
-        $http.post('', user)
-        .then(function (res) {
-            callback(res.data);
-        }, function (err) {
-
-        });
-      },
-
-      getUserByUsername : function (username) {
-        $http.get(''+ username)
-          .then(function (res) {
-
-          }, function (err) {
-
-          });
-      },
-
-      getAll : function () {
-        $http.get('')
-        .then(function (res) {
-            return res.data;
-        }, function (err) {
-
-        });
-      },
-
-      getUserById : function (id) {
-        $http.get(''+ id)
-        .then(function (res) {
-            return data.data;
-        }, function (err) {
-
-        });
-      },
-
-      updateUser : function (id, user) {
+    user.updateUser = function (id, user) {
         $http.put(''+id, user)
         .then(function (res) {
             return res.data;
         }, function (err) {
 
         });
-      },
-
-      deleteUser : function (id) {
-        $http.delete(''+ id)
-        .then(function (res) {
-            return res.data;
-        }, function (err) {
-
-        });
-      }
-
     };
+
+    return user;
 
   }]);
 })(angular);
