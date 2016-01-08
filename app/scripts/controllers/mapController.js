@@ -2,14 +2,15 @@
 
   var app =  angular.module("app");
 
-  app.controller("MapController", ["$scope", "$rootScope", "ComplaintsService", "$log", function ($scope, $rootScope, ComplaintsService, $log) {
+  app.controller("MapController", ["$scope","ComplaintsService", "$log", function ($scope, ComplaintsService, $log) {
 
     $scope.marker_events = {
       click :  function (marker, event, model, args) {
         ComplaintsService.getComplaint({latitude: marker.position.K, longitude : marker.position.G})
         .then(function (complaint) {
           marker.getMap().panTo({lat: marker.position.G, lng: marker.position.K});
-          $rootScope.currentComplaint = complaint;
+          $log.log("Denuncia cargada correctamente");
+          //$rootScope.currentComplaint = complaint;
         }, function () {
           $log.log("Se ha producido un error al cargar la denuncia");
         });

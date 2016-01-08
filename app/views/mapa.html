@@ -3,7 +3,7 @@
 
         <!-- MAPA -->
 
-        <div flex layout="column" style="padding: 40px 40px 15px 40px">
+        <div ng-controller="MapController" flex layout="column" style="background-color:#b1afac;padding: 40px 40px 15px 40px">
             <div flex="none" style="background-color:#7e7d7c;">
               <h3 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h3>
             </div>
@@ -32,11 +32,6 @@
                 <span flex hide-xs>Centrar en mí</span>
               </md-button>
               <md-divider></md-divider>
-              <md-button flex="none" style="color:white" layout="fill">
-                <md-icon flex md-font-set="material-icons" style="color:white">add</md-icon>
-                <span flex hide-xs>Añadir denuncia</span>
-              </md-button>
-              <md-divider></md-divider>
               <md-button flex="none" layout="fill" style="color:white">
                 <md-icon flexmd-font-set="material-icons" style="color:white">equalizer</md-icon>
                 <span flex hide-xs>Filtros</span>
@@ -46,7 +41,7 @@
 
         <!-- AÑADIR DENUNCIA -->
 
-        <div ng-show="addComplainForm" flex="50" layout="column" style="padding: 10px 40px 15px 40px">
+        <div ng-controller="AddComplaintController" ng-show="addComplainForm" flex="100" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
           <div flex="none" style="background-color:#7e7d7c">
             <h2 style="text-align:center;color:white;margin:0" class="md-headline">Añadir denuncia</h2>
           </div>
@@ -62,7 +57,7 @@
 
         <!-- ÚLTIMAS DENUNCIAS -->
 
-        <div flex="50" layout="column" style="padding: 10px 40px 15px 40px">
+        <div flex="50" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
           <div flex="none" style="background-color:#7e7d7c">
             <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
           </div>
@@ -100,7 +95,7 @@
         <div flex="none" style="background-color:#999795;">
             <img src="{{currentComplaint.photo}}">
         </div>
-        <div flex="none" style="background-color:#6d6d6c;">
+        <div flex="none" style="padding:10px;background-color:#6d6d6c;color:white">
             <p>{{currentComplaint.description}}</p>
         </div>
         <div flex="none" layout="row" style="background-color:#7e7d7c;padding:0">
@@ -120,6 +115,11 @@
               <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
                   {{comment.description}}
               </div>
+          </div>
+          <div ng-show="currentComplaint.comments.length == 0">
+            <div flex="none" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
+                <p>No hay ningún comentario aún.</p>
+            </div>
           </div>
         </div>
       </div>

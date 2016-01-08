@@ -4,49 +4,50 @@
 
   app.factory("ComplaintsService", [ "$http", "$q", "$log", function ($http, $q, $log) {
 
-      return {
+      var complaints = [];
 
-        getAllComplaints : function () {
+      complaints.getAllComplaints = function () {
+        var deferred = $q.defer();
 
-          var deferred = $q.defer();
+        $http.get('/denuncias')
+        .then(function (data) {
+          deferred.resolve(data.data);
+        }, function (err) {
+          deferred.reject(err);
+        });
 
-          $http.get('/denuncias')
-          .then(function (data) {
-            deferred.resolve(data.data);
-          }, function (err) {
-            deferred.reject(err);
-          });
-
-          return deferred.promise;
-        },
-
-        addComplaint : function (complaint) {
-          var deferred = $q.defer();
-
-          $http.post('/denuncias/denunciar', complaint)
-          .then(function (data) {
-            deferred.resolve(data.data);
-          }, function (err) {
-            deferred.reject(err);
-          });
-
-          return deferred.promise;
-        },
-
-        getComplaint : function (position) {
-          var deferred = $q.defer();
-
-          $http.get('/denuncias/'+position.latitude+','+position.longitude)
-          .then(function (data) {
-            deferred.resolve(data.data);
-          }, function (err) {
-            deferred.reject(err);
-          });
-
-          return deferred.promise;
-        }
-
+        return deferred.promise;
       };
+
+      complaints.addComplaint = function (complaint) {
+        var deferred = $q.defer();
+
+        $http.post('/denuncias/denunciar', complaint)
+        .then(function (data) {
+          complaints.push(data.data);
+          deferred.resolve(data.data);
+        }, function (err) {
+          deferred.reject(err);
+        });
+
+        return deferred.promise;
+      };
+
+      complaints.getComplaint = function (position) {
+        var deferred = $q.defer();
+
+        $http.get('/denuncias/'+position.latitude+','+position.longitude)
+        .then(function (data) {
+            deferred.resolve(data.data);
+        }, function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+      };
+
+      return complaints;
+
   }]);
 
 })(angular);
