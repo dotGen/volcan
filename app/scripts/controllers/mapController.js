@@ -21,11 +21,9 @@
       click : function (map, event, args) {
         $scope.addComplainForm = true;
         map.panTo({lat: args[0].latLng.G, lng: args[0].latLng.K});
-        $rootScope.newComplaint.latitude =  args[0].latLng.G;
-        $rootScope.newComplaint.longitude =  args[0].latLng.K;
-        $scope.$apply(function () {
-          $log.log("caca");
-        });
+        //$rootScope.newComplaint.latitude =  args[0].latLng.G;
+        //$rootScope.newComplaint.longitude =  args[0].latLng.K;
+        $scope.$apply();
       }
     };
 

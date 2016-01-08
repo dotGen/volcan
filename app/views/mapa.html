@@ -1,4 +1,4 @@
-<div flex="100" layout="row" style="background-color:#b1afac">
+<div flex="100" layout="row" style="background-color:#b1afac" ng-controller="MapController">
       <div flex="100" layout="column">
 
         <!-- MAPA -->
@@ -7,7 +7,7 @@
             <div flex="none" style="background-color:#7e7d7c;">
               <h3 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h3>
             </div>
-            <div flex layout="row" ng-controller="MapController">
+            <div flex layout="row" >
               <ui-gmap-google-map events="map_events" flex="100" style="padding:0" center="{latitude:45,longitude:-73}" zoom="8">
                 <div ng-repeat="complaint in complaints">
                   <ui-gmap-marker events="marker_events" coords="{latitude: complaint.latitude, longitude: complaint.longitude}" idkey="complaint._id"></ui-gmap-marker>
