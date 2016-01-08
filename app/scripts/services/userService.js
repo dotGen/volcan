@@ -2,20 +2,23 @@
 
   var app = angular.module("app");
 
-  app.factory("UserService", [ "$http", "AuthenticationService", function ($http, AuthenticationService) {
+  app.factory("UserService", [ "$http", "$log", "AuthenticationService", function ($http, $log, AuthenticationService) {
 
-    var user = AuthenticationService.getCurrentUser();
-
-    user.updateUser = function (id, user) {
-        $http.put(''+id, user)
-        .then(function (res) {
-            return res.data;
-        }, function (err) {
-
-        });
+    var user = {
+      model : AuthenticationService.getEncryptedUserFromToken()
     };
 
-    return user;
+    return {
+
+      getUser : function () {
+        return user;
+      },
+
+      updateUser : function (updated_user) {
+        user.model = updated_user;
+      }
+
+    };
 
   }]);
 })(angular);

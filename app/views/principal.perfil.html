@@ -1,0 +1,25 @@
+<div flex="100" ng-controller="ProfileController" layout="row" style="background-color:#b1afac">
+      <div flex="100" layout="column">
+        <div flex layout="column" style="padding: 40px 40px 15px 40px">
+            <div flex="none" style="background-color:#7e7d7c;">
+              <h2 style="text-align:center;color:white;margin:0" class="md-headline">Mi perfil</h2>
+            </div>
+            <div layout="column" layout-padding style="background-color:#999795;">
+              <div flex>
+                <p><span style="font-weight:bold">Nombre</span> : {{user.model.name}}</p>
+              </div>
+              <div flex>
+                <p><span style="font-weight:bold">Email</span>: {{user.model.email}}</p>
+              </div>
+              <div flex>
+                <span style="font-weight:bold">Avatar</span>
+                <img flex="none" src="{{user.model.avatar}}">
+                <md-button flex="none" layout="fill" style="color:white;background-color:#7e7d7c">
+                  <md-icon flexmd-font-set="material-icons" style="color:white">equalizer</md-icon>
+                  <span flex>Cambiar avatar</span>
+                </md-button>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>

@@ -29,16 +29,31 @@ app.use("/scripts/lodash", express.static(__dirname + "/node_modules/angular-goo
 app.use("/scripts/angular-simple-logger", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/angular-simple-logger/dist"));
 app.use("/scripts/angular-ui-router", express.static(__dirname + "/node_modules/angular-ui-router/release"));
 
+//Middleware for set HTTP Headers for authentication.
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
+
 //Middleware para comprobar si el token es auténtico.
 
 var checkIfIsAuthorized = function (req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
       jwt.verify(token, config.secret_jwt_key, function(err, decoded){
-          if(err) res.send({error:true, message:'Token no valido o no existe'});
-          req.decoded = decoded;
-          next();
-        });
+          if(err) {
+            console.log(err);
+            console.log("TOKEN INCORRECTO");
+            res.send({error:true, message:'Token no valido o no existe'});
+          } else {
+            console.log("TOKEN CORRECTO");
+            req.decoded = decoded;
+            next();
+          }
+      });
     } else {
       res.send(403);
     }
@@ -54,18 +69,11 @@ app.use(bodyparser.json());
 
 app.use(bodyparser.urlencoded({extended: true}));
 
-//Middleware for set HTTP Headers for authentication.
 
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-});
 
 //Rutas
 
-app.post('/denuncias/denunciar', function (req, res) {
+app.post('/denuncias/denunciar', checkIfIsAuthorized, function (req, res) {
   database.addComplaint({description : req.body.description, latitude: req.body.latitude, longitude: req.body.longitude}
   , function (complaint) {
       res.json(complaint);

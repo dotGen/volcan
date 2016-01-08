@@ -2,15 +2,18 @@
 
   var app = angular.module("app");
 
-  app.factory("ComplaintsService", [ "$http", "$q", "$log", function ($http, $q, $log) {
+  app.factory("ComplaintsService", [ "$http", "$q", "$log", "$localStorage", function ($http, $q, $log, $localStorage) {
 
-      var complaints = [];
+      var complaints = {
+        list : []
+      };
 
       complaints.getAllComplaints = function () {
         var deferred = $q.defer();
 
         $http.get('/denuncias')
         .then(function (data) {
+          complaints.list = data.data;
           deferred.resolve(data.data);
         }, function (err) {
           deferred.reject(err);
@@ -22,9 +25,11 @@
       complaints.addComplaint = function (complaint) {
         var deferred = $q.defer();
 
-        $http.post('/denuncias/denunciar', complaint)
+        $http.post('/denuncias/denunciar', complaint, {headers: {
+    'x-access-token': $localStorage.token}
+    })
         .then(function (data) {
-          complaints.push(data.data);
+          complaints.list.push(data.data);
           deferred.resolve(data.data);
         }, function (err) {
           deferred.reject(err);

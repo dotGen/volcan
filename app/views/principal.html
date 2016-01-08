@@ -1,130 +1,138 @@
-<div layout="row" ng-controller="AppController">
+<div layout="row">
 
-  <div flex="auto" layout="column" style="background-color:#484647">
+  <div ng-controller="SidenavController" flex="auto" layout="column" style="background-color:#484647">
 
-        <md-sidenav flex="none" layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
+    <md-sidenav flex="none" layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
 
-          <div flex="none" layout="column" style="background-color:#484647">
-              <img src="{{user.avatar}}" style="border-radius:50%;margin:30px 55px 10px 55px">
-          </div>
+      <div flex="none" layout="column" style="background-color:#484647">
+          <img src="{{user.model.avatar}}" style="border-radius:50%;margin:30px 55px 10px 55px">
+      </div>
 
-          <div flex="none" style="text-align:center;background-color:#484647">
-            <h2 style="color:white" class="md-headline">{{user.name}}</h2>
-          </div>
+      <div flex="none" style="text-align:center;background-color:#484647">
+        <h2 style="color:white" class="md-headline">{{user.model.name}}</h2>
+      </div>
 
-          <div flex layout="column" style="background-color:#484647">
-            <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
-            <md-button flex="none" style="background-color:#504f4e;color:white">
-                Últimas denuncias
-            </md-button>
-            <md-button flex="none" style="background-color:#504f4e;color:white">Más valoradas</md-button>
-            <md-button flex="none" style="background-color:#504f4e;color:white">Denuncias cercanas</md-button>
-            <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
-            <md-button flex="none" style="background-color:#504f4e;color:white">Estadísticas</md-button>
-            <md-button flex="none" style="background-color:#504f4e;color:white" ng-show="isLogin()">Mis denuncias</md-button>
-          </div>
+      <div flex layout="column" style="background-color:#484647">
+        <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
+        <md-button flex="none" style="background-color:#504f4e;color:white">
+            Últimas denuncias
+        </md-button>
+        <md-button flex="none" style="background-color:#504f4e;color:white">Más valoradas</md-button>
+        <md-button flex="none" style="background-color:#504f4e;color:white">Denuncias cercanas</md-button>
+        <md-divider flex="none" style="background-color:#6d6d6c" layout-margin></md-divider>
+        <md-button flex="none" style="background-color:#504f4e;color:white">Estadísticas</md-button>
+        <md-button flex="none" style="background-color:#504f4e;color:white" ng-show="isLogin()">Mis denuncias</md-button>
+      </div>
 
-          <div layout="column" layout-align="end none" style="background-color:#484647">
-            <md-button style="background-color:#504f4e;color:white">Reportar fallo</md-button>
-          </div>
+      <div layout="column" layout-align="end none" style="background-color:#484647">
+        <md-button style="background-color:#504f4e;color:white">Reportar fallo</md-button>
+      </div>
 
-        </md-sidenav>
+    </md-sidenav>
 
   </div>
 
   <div flex="100" layout="column" style="background-color:#b1afac">
 
-      <md-toolbar ng-show="!showSearch">
+      <div ng-controller="ToolbarController">
 
-        <div class="md-toolbar-tools" style="background-color:#6d6d6c">
+          <md-toolbar ng-show="!showSearch">
 
-            <md-button hide-gt-md ng-click="openLeftMenu()">
-              <md-icon md-font-set="material-icons" style="color:white"  >menu</md-icon>
-            </md-button>
+            <div class="md-toolbar-tools" style="background-color:#6d6d6c">
 
-            <md-icon md-font-set="material-icons" hide-md hide-xs hide-sm>
+                <md-button hide-gt-md ng-click="openLeftMenu()">
+                  <md-icon md-font-set="material-icons" style="color:white">menu</md-icon>
+                </md-button>
 
-            </md-icon>
+                <md-icon md-font-set="material-icons" hide-md hide-xs hide-sm>
 
-            <h3 md-header-title flex>Volcán</h3>
+                </md-icon>
 
-            <span flex></span>
+                <h3 md-header-title flex>Volcán</h3>
 
-            <md-button ng-click="showSearch = !showSearch" >
-              <md-icon md-font-set="material-icons" style="color:white">search</md-icon>
-            </md-button>
+                <span flex></span>
 
-            <md-button ui-sref="registro" ng-click="!isLogin()" >
-              <span hide-xs hide-sm style="padding-right:10px">Registrate</span>
-              <md-icon md-font-set="material-icons" style="color:white" >assignment</md-icon>
-            </md-button>
+                <md-button ng-click="showSearch = !showSearch" >
+                  <md-icon md-font-set="material-icons" style="color:white">search</md-icon>
+                </md-button>
 
-            <md-button ui-sref="entrar" ng-click="!isLogin()">
-              <span hide-xs hide-sm style="padding-right:10px">Entra</span>
-              <md-icon md-font-set="material-icons" style="color:white" >account_circle</md-icon>
-            </md-button>
+                <md-button ui-sref="registro" ng-show="!user.model.authenticate" >
+                  <span hide-xs hide-sm style="padding-right:10px">Registrate</span>
+                  <md-icon md-font-set="material-icons" style="color:white" >assignment</md-icon>
+                </md-button>
 
-            <md-button ng-controller="LogoutController" style="height:auto" ng-show="isLogin()" ng-click="submit()">
-              <span hide-xs hide-sm style="padding-right:10px">Desconectar</span>
-              <md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon>
-            </md-button>
+                <md-button ui-sref="entrar" ng-show="!user.model.authenticate">
+                  <span hide-xs hide-sm style="padding-right:10px">Entra</span>
+                  <md-icon md-font-set="material-icons" style="color:white" >account_circle</md-icon>
+                </md-button>
 
-        </div>
+                <md-button ng-show="user.model.authenticate" ng-controller="LogoutController" style="height:auto"  ng-click="submit()">
+                  <span hide-xs hide-sm style="padding-right:10px">Desconectar</span>
+                  <md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon>
+                </md-button>
 
-      </md-toolbar>
+            </div>
 
-      <md-toolbar ng-show="showSearch">
+          </md-toolbar>
 
-        <div class="md-toolbar-tools" style="background-color:white">
+          <md-toolbar ng-show="showSearch">
 
-            <md-button flex="none" ng-click="showSearch = !showSearch">
-              <md-icon md-font-set="material-icons" style="color:#6d6d6c">arrow_back</md-icon>
-            </md-button>
+            <div class="md-toolbar-tools" style="background-color:white">
 
-            <h3 md-header-title flex="none" style="color:#6d6d6c">Atrás</h3>
+                <md-button flex="none" ng-click="showSearch = !showSearch">
+                  <md-icon md-font-set="material-icons" style="color:#6d6d6c">arrow_back</md-icon>
+                </md-button>
 
-            <md-input-container flex layout="row" style="margin-left:20px">
-              <label>&nbsp;</label>
-              <input  type="text" placeholder="Buscar...">
-            </md-input-container>
+                <h3 md-header-title flex="none" style="color:#6d6d6c">Atrás</h3>
 
-            <md-button ng-click="showSearch = !showSearch" >
-              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >search</md-icon>
-            </md-button>
+                <md-input-container flex layout="row" style="margin-left:20px">
+                  <label>&nbsp;</label>
+                  <input  type="text" placeholder="Buscar...">
+                </md-input-container>
 
-            <md-button flex="none" ui-sref="registro" ng-click="!isLogin()" >
-              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Registrate</span>
-              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >assignment</md-icon>
-            </md-button>
+                <md-button ng-click="showSearch = !showSearch" >
+                  <md-icon md-font-set="material-icons" style="color:#6d6d6c" >search</md-icon>
+                </md-button>
 
-            <md-button flex="none" ui-sref="entrar" ng-click="!isLogin()">
-              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Entrar</span>
-              <md-icon md-font-set="material-icons" style="color:#6d6d6c" >account_circle</md-icon>
-            </md-button>
+                <md-button flex="none" ui-sref="registro" ng-click="!user.model.authenticate" >
+                  <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Registrate</span>
+                  <md-icon md-font-set="material-icons" style="color:#6d6d6c" >assignment</md-icon>
+                </md-button>
 
-            <form ng-controller="LogoutController" ng-show="isLogin()">
-              <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Desconectar</span>
-              <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
-            </form>
+                <md-button flex="none" ui-sref="entrar" ng-click="!user.model.authenticate">
+                  <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Entrar</span>
+                  <md-icon md-font-set="material-icons" style="color:#6d6d6c" >account_circle</md-icon>
+                </md-button>
 
-        </div>
+                <form ng-controller="LogoutController" ng-show="user.model.authenticate">
+                  <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Desconectar</span>
+                  <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
+                </form>
 
-      </md-toolbar>
+            </div>
 
-      <md-tabs md-stretch-tabs="always" style="background-color:white" md-selected="0">
-        <md-tab ui-sref="principal.mapa">
-          Principal
-        </md-tab>
-        <md-tab ng-if="isLogin()" ui-sref="principal.perfil">
-          Mi perfil
-        </md-tab>
-        <md-tab >
-          Opciones
-        </md-tab>
-      </md-tabs>
+          </md-toolbar>
+
+          <md-tabs md-stretch-tabs="always" style="background-color:white" md-selected="0">
+
+              <md-tab ui-sref="principal.mapa">
+                Principal
+              </md-tab>
+              <md-tab ng-if="user.model.authenticate" ui-sref="principal.perfil">
+                Mi perfil
+              </md-tab>
+              <md-tab>
+                Opciones
+              </md-tab>
+
+          </md-tabs>
+
+      </div>
 
       <md-content>
+
         <div ui-view></div>
+
       <md-content>
 
   </div>

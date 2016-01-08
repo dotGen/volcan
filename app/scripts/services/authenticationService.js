@@ -2,7 +2,7 @@
 
   var app =  angular.module("app");
 
-  app.factory("AuthenticationService", ["$http", "$localStorage", "$q", function ($http, $localStorage, $q) {
+  app.factory("AuthenticationService", ["$http", "$localStorage", "$q",  function ($http, $localStorage, $q) {
 
     function urlBase64Decode(str) {
         var output = str.replace('-', '+').replace('_', '/');
@@ -25,6 +25,16 @@
       return CryptoJS.SHA512(str).toString();
     }
 
+    function  getEncryptedUserFromToken () {
+                        if (typeof ($localStorage.token) !== 'undefined')  {
+                          var user = JSON.parse(urlBase64Decode($localStorage.token.split('.')[1]));
+                          user.authenticate = true;
+                          return user;
+                        } else {
+                          return {authenticate : false, name: "Anónimo"};
+                        }
+                      };
+
     return {
 
       signin : function  (user_form) {
@@ -32,7 +42,7 @@
                     $http.post('/entrar', { email : user_form.email, password : encryptWithSHA512(user_form.password)})
                     .then(function (res) {
                         $localStorage.token = res.data.token;
-                        deferred.resolve();
+                        deferred.resolve(getEncryptedUserFromToken());
                     }, function (err) {
                       deferred.reject(err);
                     });
@@ -44,7 +54,7 @@
                   $http.post('/registro', { email : user_form.email, name: user_form.name, password : encryptWithSHA512(user_form.password)})
                   .then(function (res) {
                       $localStorage.token = res.data.token;
-                      deferred.resolve();
+                      deferred.resolve(getEncryptedUserFromToken());
                   }, function (err) {
                     deferred.reject();
                   });
@@ -56,15 +66,15 @@
                   callback();
                 },
 
-      getCurrentUser : function  () {
-                          if (typeof ($localStorage.token) !== 'undefined')  {
-                            var user = JSON.parse(urlBase64Decode($localStorage.token.split('.')[1]));
-                            user.authenticate = true;
-                            return user;
-                          } else {
-                            return {authenticate : false, name : "Anónimo"};
-                          }
-                        }
+      getEncryptedUserFromToken : function  () {
+                                    if (typeof ($localStorage.token) !== 'undefined')  {
+                                      var user = JSON.parse(urlBase64Decode($localStorage.token.split('.')[1]));
+                                      user.authenticate = true;
+                                      return user;
+                                    } else {
+                                      return { name : "Anónimo", authenticate : false }
+                                    }
+                                  }
     };
 
   }]);

@@ -16,11 +16,12 @@
 
   app.config(function ($stateProvider, $urlRouterProvider) {
 
-      $urlRouterProvider.otherwise("principal/mapa");
+      $urlRouterProvider.otherwise("/principal/mapa");
 
       $stateProvider
         .state('entrar', {
           url: "/entrar",
+          controller : "LoginController",
           templateUrl: "views/entrar.html"
         })
         .state('registro', {
@@ -33,16 +34,16 @@
         })
         .state('principal', {
           abstract : true,
-          url :  "/principal",
-          templateUrl : "views/principal.html"
+          url : '/principal',
+          templateUrl : 'views/principal.html'
         })
         .state('principal.mapa', {
           url :  "/mapa",
-          templateUrl : "views/mapa.html"
+          templateUrl : "views/principal.mapa.html"
         })
         .state('principal.perfil', {
-          url :  "/perfil",
-          templateUrl : "views/perfil.html"
+          url: "/perfil",
+          templateUrl : "views/principal.perfil.html"
         });
 
   });

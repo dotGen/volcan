@@ -2,19 +2,23 @@
 
   var app =  angular.module("app");
 
-  app.controller("AddComplaintController"
-  , ["$scope", "ComplaintsService", "$log", function ($scope, ComplaintsService, $log) {
+  app.controller("AddComplaintController", ["$scope", "ComplaintsService", "NewComplaintFactory", "$log", function ($scope, ComplaintsService, NewComplaintFactory, $log) {
 
-    $scope.new_complaint = {};
-    $scope.addComplainForm = false;
+    $scope.newComplaint = NewComplaintFactory.getNewComplaint();
 
-    $scope.addComplaint = ComplaintsService.addComplaint($scope.new_complaint)
-    .then(function (addedComplaint) {
-      $scope.addComplainForm = false;
-      $log.log("Denuncia añadida");
-    }, function () {
-      $log.log("Se ha producido un error al añadir la denuncia");
-    });
+    $scope.addComplaint = function () {
+      ComplaintsService.addComplaint($scope.newComplaint.complaint)
+      .then(function (addedComplaint) {
+        NewComplaintFactory.setVisible(false);
+        NewComplaintFactory.setEmpty();
+      }, function () {
+        $log.log("Error al agregar la denuncia");
+      });
+    };
+
+    $scope.hide = function () {
+      NewComplaintFactory.setVisible(false);
+    };
 
   }]);
 

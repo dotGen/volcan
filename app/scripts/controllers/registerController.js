@@ -7,7 +7,9 @@
     $scope.new_user = {};
 
     $scope.submit = function () {
-        AuthenticationService.signup($scope.new_user).then(function () {
+        AuthenticationService.signup($scope.new_user)
+        .then(function (registeredUser) {
+          UserService.updateUser({name : registeredUser.name , email : registeredUser.email , authenticate : true});
           $state.go("principal.mapa");
         }, function (err) {
           $log.log(err);
