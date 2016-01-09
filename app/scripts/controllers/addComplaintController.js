@@ -2,7 +2,7 @@
 
   var app =  angular.module("app");
 
-  app.controller("AddComplaintController", ["$scope", "ComplaintsService", "NewComplaintFactory", "$log", function ($scope, ComplaintsService, NewComplaintFactory, $log) {
+  app.controller("AddComplaintController", ["$scope", "ComplaintsService", "NewComplaintFactory", "$log", "$mdToast", function ($scope, ComplaintsService, NewComplaintFactory, $log, $mdToast) {
 
     $scope.newComplaint = NewComplaintFactory.getNewComplaint();
 
@@ -11,6 +11,13 @@
       .then(function (addedComplaint) {
         NewComplaintFactory.setVisible(false);
         NewComplaintFactory.setEmpty();
+
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('¡Denuncia añadida con éxito!')
+            .hideDelay(3000)
+        );
+
       }, function () {
         $log.log("Error al agregar la denuncia");
       });

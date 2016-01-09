@@ -6,7 +6,7 @@
                       <h3 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h3>
                     </div>
                     <div flex layout="row">
-                      <ui-gmap-google-map events="map_events" flex="100" style="padding:0" center="{latitude:45,longitude:-73}" zoom="8">
+                      <ui-gmap-google-map events="map_events" flex="100" style="padding:0" center="mapOptions.center" zoom="mapOptions.zoom">
 
                         <ui-gmap-markers models="complaints" events="marker_events" coords="'self'" idKey="'_id'">
                         </ui-gmap-markers>
@@ -26,7 +26,7 @@
                       </div>
                     </div>
                     <div flex layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
-                      <md-button flex="none" style="color:white" layout="fill">
+                      <md-button ng-click="center()" flex="none" style="color:white" layout="fill">
                         <md-icon flex md-font-set="material-icons" style="color:white">near_me</md-icon>
                         <span flex hide-xs>Centrar en mí</span>
                       </md-button>

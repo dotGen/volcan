@@ -2,7 +2,36 @@
 
   var app =  angular.module("app");
 
-  app.controller("MapController", ["$scope", "ComplaintsService", "CurrentComplaintFactory", "NewComplaintFactory", "$log", function ($scope, ComplaintsService, CurrentComplaintFactory, NewComplaintFactory, $log) {
+  app.controller("MapController", ["$scope", "ComplaintsService", "CurrentComplaintFactory", "NewComplaintFactory", "$log", "geolocation", "uiGmapIsReady", function ($scope, ComplaintsService, CurrentComplaintFactory, NewComplaintFactory, $log, geolocation,uiGmapIsReady) {
+
+    $scope.mapOptions = {
+      center : {
+        latitude : 28.122461,
+        longitude : -15.439805
+      },
+      zoom : 12
+    };
+
+    $scope.map = {};
+
+    uiGmapIsReady.promise(1)
+    .then(function(instances) {
+      instances.forEach(function(inst) {
+          $scope.map = inst.map;
+          getCenter(function (position) {
+            $scope.map.panTo(position);
+          });
+      });
+    });
+
+    function getCenter (callback) {
+      geolocation.getLocation()
+      .then(function(data){
+          callback({lat:data.coords.latitude, lng:data.coords.longitude});
+      }, function (err) {
+
+      });
+    };
 
     ComplaintsService.getAllComplaints()
     .then(function (complaints) {
@@ -10,6 +39,12 @@
     }, function () {
       $log.log("Error al cargar las denuncias");
     });
+
+    $scope.center = function () {
+      getCenter(function (position) {
+        $scope.map.panTo(position);
+      });
+    };
 
     $scope.marker_events = {
       click :  function (marker, event, model, args) {

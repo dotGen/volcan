@@ -28,6 +28,7 @@ app.use("/scripts/angular-google-maps", express.static(__dirname + "/node_module
 app.use("/scripts/lodash", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/lodash"));
 app.use("/scripts/angular-simple-logger", express.static(__dirname + "/node_modules/angular-google-maps/node_modules/angular-simple-logger/dist"));
 app.use("/scripts/angular-ui-router", express.static(__dirname + "/node_modules/angular-ui-router/release"));
+app.use("/scripts/angularjs-geolocation", express.static(__dirname + "/node_modules/angularjs-geolocation/dist"));
 
 //Middleware for set HTTP Headers for authentication.
 

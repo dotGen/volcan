@@ -94,20 +94,20 @@
                   <md-icon md-font-set="material-icons" style="color:#6d6d6c" >search</md-icon>
                 </md-button>
 
-                <md-button flex="none" ui-sref="registro" ng-click="!user.model.authenticate" >
+                <md-button flex="none" ui-sref="registro" ng-show="!user.model.authenticate" >
                   <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Registrate</span>
                   <md-icon md-font-set="material-icons" style="color:#6d6d6c" >assignment</md-icon>
                 </md-button>
 
-                <md-button flex="none" ui-sref="entrar" ng-click="!user.model.authenticate">
+                <md-button flex="none" ui-sref="entrar" ng-show="!user.model.authenticate">
                   <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Entrar</span>
                   <md-icon md-font-set="material-icons" style="color:#6d6d6c" >account_circle</md-icon>
                 </md-button>
 
-                <form ng-controller="LogoutController" ng-show="user.model.authenticate">
+                <md-button ng-show="user.model.authenticate" ng-controller="LogoutController" ng-click="submit()" style="height:auto">
                   <span hide-xs hide-sm style="padding-right:10px;color:#6d6d6c">Desconectar</span>
-                  <md-button ng-click="submit()"><md-icon md-font-set="material-icons" style="color:white">power_settings_new</md-icon></md-button>
-                </form>
+                  <md-icon md-font-set="material-icons" style="color:#6d6d6c">power_settings_new</md-icon>
+                </md-button>
 
             </div>
 
