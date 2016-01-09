@@ -2,7 +2,7 @@
 
   var app = angular.module("app");
 
-  app.factory("ComplaintsService", [ "$http", "$q", "$log", "$localStorage", function ($http, $q, $log, $localStorage) {
+  app.factory("ComplaintsService", [ "$http", "$q", "$log", "$localStorage", "Upload", "$timeout",function ($http, $q, $log, $localStorage, Upload, $timeout) {
 
       var complaints = {
         list : []
@@ -23,17 +23,30 @@
       };
 
       complaints.addComplaint = function (complaint) {
-        var deferred = $q.defer();
+          var deferred = $q.defer();
 
-        $http.post('/denuncias/denunciar', complaint, {headers: {
-    'x-access-token': $localStorage.token}
-    })
-        .then(function (data) {
-          complaints.list.push(data.data);
-          deferred.resolve(data.data);
-        }, function (err) {
-          deferred.reject(err);
-        });
+          Upload.upload({
+            url: '/denuncias/denunciar',
+            data: {
+              'photo': complaint.photo,
+              'audio': complaint.audio,
+              'latitude' : complaint.latitude,
+              'longitude' : complaint.longitude,
+              'description' : complaint.description
+            },
+            headers : {
+              'x-access-token' : $localStorage.token,
+              'Content-Type' : undefined
+            }
+          }).then(function (response) {
+              $timeout(function () {
+                complaints.list.push(response.data);
+                deferred.resolve(response.data);
+              });
+          }, function (response) {
+              deferred.reject(response);
+              $log.log("Error al subir la denuncia");
+          });
 
         return deferred.promise;
       };

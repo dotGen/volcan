@@ -1,6 +1,6 @@
 (function (angular) {
 
-  var app = angular.module("app", ["ngStorage","ngMaterial", "uiGmapgoogle-maps", "ui.router", "ngMessages", 'geolocation']);
+  var app = angular.module("app", ["ngStorage","ngMaterial", "uiGmapgoogle-maps", "ui.router", "ngMessages", 'geolocation', 'ngFileUpload']);
 
   //Angular Google Maps configuration
 

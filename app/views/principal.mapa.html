@@ -48,14 +48,31 @@
                     </div>
                   </div>
                   <div flex="100" style="background-color:#999795">
-                    <form>
-                      <p>
-                        Latitud : {{newComplaint.complaint.latitude}}, Longitud : {{newComplaint.complaint.longitude}}
-                      </p>
-                      <input type="text" ng-model="newComplaint.complaint.description">
-                      <input type="file" ng-model="newComplaint.complaint.audio">
-                      <input type="file" ng-model="newComplaint.complaint.photo">
-                      <md-button ng-click="addComplaint()" style="background-color:#7e7d7c;color:white">Subir denuncia<md-button>
+                    <form layout="column" layout-padding>
+                        <div flex>
+                          <span style="font-weight:bold">Latitud : </span>{{newComplaint.complaint.latitude}}
+                        </div>
+                        <div flex>
+                          <span style="font-weight:bold">Longitud : </span>{{newComplaint.complaint.longitude}}
+                        </div>
+
+                        <textarea type="text" flex ng-model="newComplaint.complaint.description"></textarea>
+
+                        <div flex>
+                          <span style="font-weight:bold">Foto :</span>
+                          <input type="file" ngf-select ng-model="newComplaint.complaint.photo" name="file" accept="image/*" required>
+                          <img ngf-src="newComplaint.complaint.photo" ngf-resize="{width: 20, height: 20, quality: 0.9}">
+                        </div>
+
+                        <div flex>
+                          <span style="font-weight:bold">Audio :</span>
+                          <input type="file" ngf-select ng-model="newComplaint.complaint.audio" accept="audio/*" required>
+                          <audio ngf-thumbnail="newComplaint.complaint.audio" ngf-size="{width: 20, height: 20, quality: 0.9}">
+                        </div>
+
+                        <md-button ng-click="addComplaint()" style="background-color:#7e7d7c;color:white">
+                          Subir denuncia
+                        <md-button>
                     </form>
                   </div>
                 </div>

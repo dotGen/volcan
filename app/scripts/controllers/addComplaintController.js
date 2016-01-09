@@ -2,11 +2,12 @@
 
   var app =  angular.module("app");
 
-  app.controller("AddComplaintController", ["$scope", "ComplaintsService", "NewComplaintFactory", "$log", "$mdToast", function ($scope, ComplaintsService, NewComplaintFactory, $log, $mdToast) {
+  app.controller("AddComplaintController", ["$scope", "ComplaintsService", "NewComplaintFactory", "$log", "$mdToast", "Upload", function ($scope, ComplaintsService, NewComplaintFactory, $log, $mdToast, Upload) {
 
     $scope.newComplaint = NewComplaintFactory.getNewComplaint();
 
     $scope.addComplaint = function () {
+
       ComplaintsService.addComplaint($scope.newComplaint.complaint)
       .then(function (addedComplaint) {
         NewComplaintFactory.setVisible(false);

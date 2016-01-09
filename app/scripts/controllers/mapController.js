@@ -29,9 +29,13 @@
       .then(function(data){
           callback({lat:data.coords.latitude, lng:data.coords.longitude});
       }, function (err) {
-
+          $log.log(err);
       });
     };
+
+    $scope.$on('error', function (err) {
+      $log.log(err);
+    });
 
     ComplaintsService.getAllComplaints()
     .then(function (complaints) {
@@ -41,7 +45,9 @@
     });
 
     $scope.center = function () {
+              $log.log("caca");
       getCenter(function (position) {
+        $log.log(position);
         $scope.map.panTo(position);
       });
     };
