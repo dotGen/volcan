@@ -1,8 +1,11 @@
 /**** All database related ****/
+var path = require('path');
+var config = require(path.resolve(".")+'/config/config.js');
+
+
 
 var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://dotGen:h4g18042015@ds035485.mongolab.com:35485/volcan');
+mongoose.connect(config.database_url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
