@@ -23,7 +23,9 @@
     "jquery": "^2.1.4",
     "jsonwebtoken": "^5.4.1",
     "mongoose": "^4.3.4",
-    "ngstorage": "^0.3.10"
+    "ngstorage": "^0.3.10",
+    "ng-file-upload": "11.0.2",
+    "formidable": "1.0.17"
   },
   "author": "dotGen Team",
   "license": "ISC",
