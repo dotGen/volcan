@@ -1,8 +1,8 @@
 /**** All database related ****/
+var path = require('path');
+var config = require(path.resolve(".")+'/config/config.js');
 
 var mongoose = require('mongoose');
-var path = require('path');
-var config = require(path.resolve('.')+'/config/config.js');
 
 mongoose.connect(config.database_url);
 var db = mongoose.connection;
