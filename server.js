@@ -184,7 +184,7 @@ app.post('/registro', parser, function (req, res) {
   //Enviamos la plantilla.
 
 app.get('*', function (req, res) {
-  res.sendFile(__dirname + '/app/plantilla.html');
+  res.sendFile(__dirname + '/app/index.html');
 });
 
 //Fin rutas

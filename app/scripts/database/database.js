@@ -1,4 +1,3 @@
-/**** All database related ****/
 var path = require('path');
 var config = require(path.resolve(".")+'/config/config.js');
 

@@ -13,32 +13,98 @@ p, h1, h2, h3, h4, h5 {
   height: 400px;
 }
 
-body[dir=rtl] .hint {
-  right: 2px;
-  left: auto;
+/*SIDENAV*/
+
+.sidenav {
+  background-color:#484647;
 }
 
-.inputdemoErrorsAdvanced {
-  /* NOTE: Check the demo's HTML to see some additional RTL support CSS */
-  /* Setup animations similar to the ng-messages */ }
-  .inputdemoErrorsAdvanced .hint {
-    /* Position the hint */
-    position: absolute;
-    left: 2px;
-    right: auto;
-    bottom: 7px;
-    /* Copy styles from ng-messages */
-    font-size: 12px;
-    line-height: 14px;
-    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-    /* Set our own color */
-    color: grey; }
-  .inputdemoErrorsAdvanced .hint.ng-hide,
-  .inputdemoErrorsAdvanced .hint.ng-enter,
-  .inputdemoErrorsAdvanced .hint.ng-leave.ng-leave-active {
-    bottom: 26px;
-    opacity: 0; }
-  .inputdemoErrorsAdvanced .hint.ng-leave,
-  .inputdemoErrorsAdvanced .hint.ng-enter.ng-enter-active {
-    bottom: 7px;
-    opacity: 1; }
+.sidenav-img {
+  background-color:#484647;
+}
+
+.sidenav-img img {
+  border-radius:50%;
+  margin:30px 55px 10px 55px;
+}
+
+.sidenav-username {
+  text-align:center;
+  background-color:#484647;
+}
+
+.sidenav-username h2 {
+  color:white;
+}
+
+.sidenav-buttons {
+  background-color:#484647;
+}
+
+.sidenav-buttons md-divider {
+  background-color:#6d6d6c;
+}
+
+/*Los md-button de angular-material se reemplazan por <button> -> .sidenav-buttons md-button (NO SIRVE)*/
+
+.sidenav-buttons button {
+  background-color:#504f4e;
+  color:white !important;
+}
+
+/*TOOLBAR*/
+
+.toolbar {
+  background-color:#b1afac;
+}
+
+.toolbar-main {
+  background-color:#6d6d6c;
+}
+
+.toolbar-main .toolbar-button md-icon {
+  color:white !important;
+  height:auto;
+}
+
+.toolbar-main  .toolbar-button span {
+  padding-right:10px;
+}
+
+.toolbar-search {
+  background-color:white;
+}
+
+.toolbar-search .toolbar-button span {
+  padding-right:10px;
+  color:#6d6d6c;
+}
+
+.toolbar-search .toolbar-button md-icon {
+  color:#6d6d6c !important;
+  height:auto;
+}
+
+.toolbar-search .toolbar-title {
+  color:#6d6d6c;
+}
+
+.toolbar-search .toolbar-input {
+  margin-left:20px;
+}
+
+/*TABS*/
+
+.toolbar-tabs {
+  background-color:white;
+}
+
+
+
+
+
+
+
+
+
+
