@@ -1,0 +1,43 @@
+<div layout="row" style="position:absolute;height:100%;width:100%;background-color:#b1afac">
+  <div layout="column" flex layout-align="center center" >
+    <h3 class="md-display-1" style="color:#6b6a6a" >Acceso de usuario</h3>
+      <form name="projectForm" novalidate >
+        <md-content layout-gt-sm="row" layout-padding>
+
+            <md-input-container>
+              <label>Correo electrónico</label>
+              <input ng-model="user.model.email" name="email" type="email" required>
+              <div ng-messages="projectForm.email.$error" ng-hide="projectForm.email.$pristine" multiple md-auto-hide="false">
+                <div ng-message="required">
+                  El email es un campo obligatorio.
+                </div>
+                <div ng-message="email">
+                  No es un email válido.
+                </div>
+              </div>
+            </md-input-container><br>
+
+            <md-input-container>
+              <label>Contraseña</label>
+              <input ng-model="user.model.password" name="password" type="password" minlength="5" required>
+              <div ng-messages="projectForm.password.$error" ng-hide="projectForm.password.$pristine" ng-show="projectForm.password.$touched" multiple md-auto-hide="false">
+                <div ng-message="required" >
+                  La contraseña es un campo obligatorio.
+                </div>
+                <div ng-message="minlength">
+                  Mínima longitud de 5 carácteres.
+                </div>
+              </div>
+            </md-input-container><br>
+
+            <div layout="row">
+              <md-button layout="column" flex="100" class="md-raised" style="background-color:#504f4e;color:white" layout-padding ng-click="submit()">
+                  CONECTARME YA
+              </md-button>
+            </div>
+            <a ui-sref="reenvio">¿Has olvidado la contraseña?</a>
+
+        </md-content>
+      </form>
+  </div>
+</div>

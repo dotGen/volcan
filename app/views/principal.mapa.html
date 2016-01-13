@@ -1,0 +1,172 @@
+<div flex="100" layout="row" layout-xs="column" layout-sm="column" layout-fill style="background-color:#b1afac">
+      <div flex="100" layout="column">
+
+                <!-- MAPA -->
+
+                <div flex ng-controller="MapController" layout="column" style="background-color:#b1afac;padding: 40px 40px 15px 40px">
+                    <div flex="none" style="background-color:#7e7d7c;">
+                      <h3 style="text-align:center;color:white;margin:0" class="md-headline">Mapa</h3>
+                    </div>
+                    <div flex layout="row">
+                      <ui-gmap-google-map events="map_events" flex="100" style="padding:0" center="mapOptions.center" zoom="mapOptions.zoom">
+
+                        <ui-gmap-markers models="complaints" events="marker_events" coords="'self'" idKey="'_id'">
+                        </ui-gmap-markers>
+
+                      </ui-gmap-google-map>
+                      <div flex="none" ng-if="false" layout="column" style="background-color:#999795">
+                          <h3 md-header-title layout-padding style="color:white;text-align:center">Filtros</h3>
+                          <md-switch style="color:white;padding-left:10px">
+                            Barrera 1
+                          </md-switch>
+                          <md-switch style="color:white;padding-left:10px">
+                            Barrera 2
+                          </md-switch>
+                          <md-switch style="color:white;padding-left:10px">
+                            Barrera 3
+                          </md-switch>
+                      </div>
+                    </div>
+                    <div flex layout="row" style="height:50px;background-color:#7e7d7c;padding:0;" layout-align="center">
+                      <md-button ng-click="center()" flex="none" style="color:white" layout="fill">
+                        <md-icon flex md-font-set="material-icons" style="color:white">near_me</md-icon>
+                        <span flex hide-xs>Centrar en mí</span>
+                      </md-button>
+                      <md-divider></md-divider>
+                      <md-button flex="none" layout="fill" style="color:white">
+                        <md-icon flexmd-font-set="material-icons" style="color:white">equalizer</md-icon>
+                        <span flex hide-xs>Filtros</span>
+                      </md-button>
+                    </div>
+                </div>
+
+                <!-- AÑADIR DENUNCIA -->
+
+                <div flex="100" flex-order="0" ng-controller="AddComplaintController" ng-show="newComplaint.visible" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
+                  <div flex="none" layout="row" style="background-color:#7e7d7c">
+                    <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Añadir denuncia</h2>
+                    <div flex="none" layout="row" layout-align="end">
+                      <md-button ng-click="hide()" style="margin:0;padding-left:40px">
+                        <md-icon md-font-set="material-icons" style="color:white;">chevron_right</md-icon>
+                      </md-button>
+                    </div>
+                  </div>
+                  <div flex="100" style="background-color:#999795">
+                    <form layout="column" layout-padding>
+                        <div flex>
+                          <span style="font-weight:bold">Latitud : </span>
+                          {{newComplaint.complaint.latitude}}
+                        </div>
+                        <div flex>
+                          <span style="font-weight:bold">Longitud : </span>
+                          {{newComplaint.complaint.longitude}}
+                        </div>
+
+                        <textarea type="text" flex ng-model="newComplaint.complaint.description"></textarea>
+
+                        <div flex>
+                          <span style="font-weight:bold">Foto :</span>
+                          <input type="file" ngf-select ng-model="newComplaint.complaint.photo" name="file" accept="image/*" required>
+                          <img ngf-src="newComplaint.complaint.photo" ngf-resize="{width: 20, height: 20, quality: 0.9}">
+                        </div>
+
+                        <div flex>
+                          <span style="font-weight:bold">Audio :</span>
+                          <input type="file" ngf-select ng-model="newComplaint.complaint.audio" accept="audio/*" required>
+                          <audio ngf-thumbnail="newComplaint.complaint.audio" ngf-size="{width: 20, height: 20, quality: 0.9}">
+                        </div>
+
+                        <md-button ng-click="addComplaint()" style="background-color:#7e7d7c;color:white">
+                          Subir denuncia
+                        <md-button>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- ÚLTIMAS DENUNCIAS -->
+
+                <div flex="100" flex-order="2" ng-controller="LastComplaintsController" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
+                  <div flex="none" style="background-color:#7e7d7c">
+                    <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
+                  </div>
+                  <md-list flex style="background-color:#999795;padding:0">
+                      <md-list-item >
+                          <div flex layout="row" style="padding-top:10px; padding-bottom:10px;height:90px">
+                              <div flex="10" style="background-color:#333334;padding:10px">
+                              </div>
+                              <div flex="100" style="background-color:#6d6d6c;padding:10px;color:white">
+                                Pequeña descripción
+                              </div>
+                              <md-button flex="none" class="md-fab" style="background-color:#7e7d7c;">
+                                <md-icon md-font-set="material-icons" style="height:auto">place</md-icon>
+                              </md-button>
+                              <md-button flex="none" class="md-fab" style="background-color:#7e7d7c;">
+                                <md-icon md-font-set="material-icons" style="height:auto">report</md-icon>
+                              </md-button>
+                          </div>
+                      </md-list-item>
+                  </md-list>
+                </div>
+      </div>
+
+      <!-- INFO DENUNCIA -->
+
+      <div flex="40"  flex-order-xs="-1" flex-order-sm="-1" flex-sm="100" flex-xs="100" ng-controller="CurrentComplaintController" ng-show="currentComplaint.visible" layout="column" style="padding: 40px 40px 15px 40px">
+        <div flex="none" layout="row" style="background-color:#7e7d7c">
+          <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Descripción</h2>
+          <div flex="none" layout="row" layout-align="end">
+            <md-button ng-click="hide()" style="margin:0;padding-left:40px">
+              <md-icon md-font-set="material-icons" style="color:white;">
+                chevron_right
+              </md-icon>
+            </md-button>
+          </div>
+        </div>
+        <div flex="none" layout="row" style="background-color:#999795;" layout-padding layout-align="center center">
+            <md-button flex="10">
+                <md-icon md-font-set="material-icons" style="color:white;">
+                  chevron_left
+                </md-icon>
+            </md-button>
+            <img flex="80" src="{{currentComplaint.complaint.photo}}" alt="" layout-align="center">
+            <md-button flex="10">
+                <md-icon md-font-set="material-icons" style="color:white;">
+                  chevron_right
+                </md-icon>
+            </md-button>
+        </div>
+        <div flex layout="column" style="background-color:#999795;">
+            <audio controls flex>
+              <source src="{{currentComplaint.complaint.audio}}" type="audio/mp3">
+            </audio>
+        </div>
+        <div flex="none" style="padding:10px;background-color:#6d6d6c;color:white">
+            <p>{{currentComplaint.complaint.description}}</p>
+        </div>
+        <div flex="none" layout="row" style="background-color:#7e7d7c;padding:0">
+            <div flex="50" style="text-align:center">
+              <md-button style="color:white">Comentar</md-button>
+            </div>
+            <md-divider></md-divider>
+            <div flex="50" style="text-align:center">
+              <md-button style="color:white;">Compartir</md-button>
+            </div>
+        </div>
+        <div flex="none" layout="column" style="background-color:#999795;padding:0">
+          <div ng-repeat="comment in currentComplaint.complaint.comments" layout="row" style="padding-top:10px; padding-bottom:10px">
+              <div flex="20" style="background-color:#333334;padding:10px;color:white">
+                  {{comment.author}}
+              </div>
+              <div flex="80" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
+                  {{comment.description}}
+              </div>
+          </div>
+          <div ng-show="currentComplaint.complaint.comments.length == 0">
+            <div flex="none" style="background-color:#6d6d6c;padding:10px;color:white;color:white">
+                <p>No hay ningún comentario aún.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

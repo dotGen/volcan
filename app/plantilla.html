@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Volcán - Portal de Accesibilidad y Comunicación</title>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,500" rel="stylesheet" type="text/css">
+
+    <!-- our css css -->
+
+    <link rel="stylesheet" href="/scripts/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+
+    <!-- dependencies js -->
+
+    <script src="/scripts/lodash/index.js"></script>
+    <script src="/scripts/jquery/jquery.min.js"></script>
+    <script src="/scripts/angular/angular.min.js"></script>
+    <script src="/scripts/angular-animate/angular-animate.min.js"></script>
+    <script src="/scripts/angular-messages/angular-messages.min.js"></script>
+    <script src="/scripts/ngstorage/ngStorage.min.js"></script>
+    <script src="/scripts/angular-aria/angular-aria.min.js"></script>
+    <script src="/scripts/angular-material/angular-material.min.js"></script>
+    <script src="/scripts/angular-simple-logger/angular-simple-logger.min.js"></script>
+    <script src="/scripts/angular-google-maps/angular-google-maps.min.js"></script>
+    <script src="/scripts/angular-ui-router/angular-ui-router.js"></script>
+    <script src="/scripts/angularjs-geolocation/angularjs-geolocation.min.js"></script>
+    <script src="/scripts/ng-file-upload/ng-file-upload.min.js"></script>
+
+    <!-- our angular app -->
+
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/services/complaintsService.js"></script>
+    <script src="./scripts/services/authenticationService.js"></script>
+    <script src="./scripts/services/userService.js"></script>
+    <script src="./scripts/services/currentComplaintFactory.js"></script>
+    <script src="./scripts/services/newComplaintFactory.js"></script>
+    <script src="./scripts/controllers/loginController.js"></script>
+    <script src="./scripts/controllers/logoutController.js"></script>
+    <script src="./scripts/controllers/registerController.js"></script>
+    <script src="./scripts/services/gravatarService.js"></script>
+    <script src="./scripts/controllers/mapController.js"></script>
+    <script src="./scripts/controllers/addComplaintController.js"></script>
+    <script src="./scripts/controllers/currentComplaintController.js"></script>
+    <script src="./scripts/controllers/lastComplaintsController.js"></script>
+    <script src="./scripts/controllers/toolbarController.js"></script>
+    <script src="./scripts/controllers/sidenavController.js"></script>
+    <script src="./scripts/controllers/profileController.js"></script>
+
+    <!-- encrypt -->
+
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha512.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+
+  </head>
+  <body ng-app="app">
+    <div ui-view layout-fill></div>
+  </body>
+</html>
