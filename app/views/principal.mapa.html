@@ -1,5 +1,7 @@
-<div flex="100" layout="row" layout-fill style="background-color:#b1afac">
+<div flex="100" layout="row" layout-xs="column" layout-sm="column" layout-fill style="background-color:#b1afac">
       <div flex="100" layout="column">
+
+                <!-- MAPA -->
 
                 <div flex ng-controller="MapController" layout="column" style="background-color:#b1afac;padding: 40px 40px 15px 40px">
                     <div flex="none" style="background-color:#7e7d7c;">
@@ -38,7 +40,9 @@
                     </div>
                 </div>
 
-                <div flex="100" ng-controller="AddComplaintController" ng-show="newComplaint.visible" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
+                <!-- AÑADIR DENUNCIA -->
+
+                <div flex="100" flex-order="0" ng-controller="AddComplaintController" ng-show="newComplaint.visible" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
                   <div flex="none" layout="row" style="background-color:#7e7d7c">
                     <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Añadir denuncia</h2>
                     <div flex="none" layout="row" layout-align="end">
@@ -50,10 +54,12 @@
                   <div flex="100" style="background-color:#999795">
                     <form layout="column" layout-padding>
                         <div flex>
-                          <span style="font-weight:bold">Latitud : </span>{{newComplaint.complaint.latitude}}
+                          <span style="font-weight:bold">Latitud : </span>
+                          {{newComplaint.complaint.latitude}}
                         </div>
                         <div flex>
-                          <span style="font-weight:bold">Longitud : </span>{{newComplaint.complaint.longitude}}
+                          <span style="font-weight:bold">Longitud : </span>
+                          {{newComplaint.complaint.longitude}}
                         </div>
 
                         <textarea type="text" flex ng-model="newComplaint.complaint.description"></textarea>
@@ -77,8 +83,9 @@
                   </div>
                 </div>
 
+                <!-- ÚLTIMAS DENUNCIAS -->
 
-                <div flex="100" ng-controller="LastComplaintsController" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
+                <div flex="100" flex-order="2" ng-controller="LastComplaintsController" layout="column" style="background-color:#b1afac;padding: 10px 40px 15px 40px">
                   <div flex="none" style="background-color:#7e7d7c">
                     <h2 style="text-align:center;color:white;margin:0" class="md-headline">Últimas denuncias</h2>
                   </div>
@@ -100,21 +107,38 @@
                       </md-list-item>
                   </md-list>
                 </div>
-
-
       </div>
 
-      <div flex="40" ng-controller="CurrentComplaintController" ng-show="currentComplaint.visible" hide-xs  layout="column" style="padding: 40px 20px 15px 10px">
+      <!-- INFO DENUNCIA -->
+
+      <div flex="40"  flex-order-xs="-1" flex-order-sm="-1" flex-sm="100" flex-xs="100" ng-controller="CurrentComplaintController" ng-show="currentComplaint.visible" layout="column" style="padding: 40px 40px 15px 40px">
         <div flex="none" layout="row" style="background-color:#7e7d7c">
           <h2 flex="100" layout-align="center" style="color:white;margin:3px 3px 3px 10px" class="md-headline">Descripción</h2>
           <div flex="none" layout="row" layout-align="end">
             <md-button ng-click="hide()" style="margin:0;padding-left:40px">
-              <md-icon md-font-set="material-icons" style="color:white;">chevron_right</md-icon>
+              <md-icon md-font-set="material-icons" style="color:white;">
+                chevron_right
+              </md-icon>
             </md-button>
           </div>
         </div>
-        <div flex="none" style="background-color:#999795;">
-            <img src="{{currentComplaint.complaint.photo}}">
+        <div flex="none" layout="row" style="background-color:#999795;" layout-padding layout-align="center center">
+            <md-button flex="10">
+                <md-icon md-font-set="material-icons" style="color:white;">
+                  chevron_left
+                </md-icon>
+            </md-button>
+            <img flex="80" src="{{currentComplaint.complaint.photo}}" alt="" layout-align="center">
+            <md-button flex="10">
+                <md-icon md-font-set="material-icons" style="color:white;">
+                  chevron_right
+                </md-icon>
+            </md-button>
+        </div>
+        <div flex layout="column" style="background-color:#999795;">
+            <audio controls flex>
+              <source src="{{currentComplaint.complaint.audio}}" type="audio/mp3">
+            </audio>
         </div>
         <div flex="none" style="padding:10px;background-color:#6d6d6c;color:white">
             <p>{{currentComplaint.complaint.description}}</p>

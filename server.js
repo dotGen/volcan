@@ -79,8 +79,9 @@ var parser = function (req, res, next) {
     form.parse(req);
 
     form.on("fileBegin", function (name, file) {
-        file.path = __dirname + "/uploads/" +((name=='audio')?'audio':'images')+"/"+ filenameGenerator(file.name);
-        req.body[name] = file.path;
+        var path_to_file = "/uploads/" +((name=='audio')?'audio':'images')+"/"+ filenameGenerator(file.name);
+        file.path = __dirname + "/app" + path_to_file;
+        req.body[name] = path_to_file;
     });
 
     form.on("field", function (name, value){

@@ -35,3 +35,7 @@ node_modules
 
 #Config files
 config
+
+#Uploads folders
+
+app/uploads
