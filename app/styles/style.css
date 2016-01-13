@@ -2,11 +2,11 @@ html, body {
   height:100%;
   width:100%;
   margin:0px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 p, h1, h2, h3, h4, h5 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Quicksand', sans-serif !important;
 }
 
 .angular-google-map-container {
@@ -96,15 +96,228 @@ p, h1, h2, h3, h4, h5 {
 /*TABS*/
 
 .toolbar-tabs {
-  background-color:white;
+  background-color:#6d6d6c;
+}
+
+.toolbar-tabs md-tab-item {
+  color:white !important;
+}
+
+.toolbar-tabs md-ink-bar {
+  background-color:white !important;
+}
+
+/*PRINCIPAL.MAPA*/
+
+.main-content {
+  background-color:#b1afac;
+}
+
+.left-col {
+
+}
+
+.right-col {
+
+}
+
+.content {
+  background-color:#b1afac;
+  padding: 40px 20px 15px 20px;
+}
+
+.content-button {
+  margin:0;
+  padding-left:40px;
+}
+
+.content-button button {
+  margin:0px;
+}
+
+.content-button button md-icon {
+  color:white !important;
+}
+
+.content-header {
+  background-color:#7e7d7c;
+  height:auto;
+}
+
+.content-header h3 {
+  text-align:center;
+  color:white;
+  margin:0;
+}
+
+.content-title {
+  padding:0px 0px 0px 10px;
+}
+
+.content-wrapper {
+  background-color:#999795;
 }
 
 
 
+.content-footer {
+  height:50px;
+  background-color:#7e7d7c;
+  padding:0; 
+}
 
+.content-footer button {
+  color:white;
+}
 
+.content-footer button md-icon {
+  color:white;
+}
 
+.last-complaint-item {
+  padding-top:10px; 
+  padding-bottom:10px;
+  height:60px;
+}
 
+.last-complaint-item-img {
+  padding:0px 10px 0px 10px;
+}
 
+.last-complaint-item-img img {
+  border-radius:50%;
+  background-color:white;
+  width:60px;
+  height:60px;
+}
+
+.last-complaint-item-description div {
+  background-color:#6d6d6c;
+  padding:10px;
+  color:white;
+  min-width:0;
+}
+
+.last-complaint-item-description p {
+  margin:0;
+  height:40px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+.last-complaint-item-button{
+  background-color:#7e7d7c !important;
+  margin:0px 10px 0px 10px;
+}
+
+.last-complaint-item-button md-icon {
+  height:auto;
+}
+
+.info-complaint-type {
+  background-color:#333334;
+  padding:5px;
+}
+
+.info-complaint-type span{
+  color:white;
+  text-align:center;
+}
+
+.info-complaint-slide a {
+  padding:0;
+}
+.info-complaint-slide img {
+ padding: 0px 5px 0px 5px;
+}
+
+.info-complaint-slide a md-icon {
+  color:white;
+  border-radius:50%;
+  background-color:#333334;
+  padding:0;
+}
+
+.info-complaint-audio {
+  background-color:#999795;
+}
+
+.info-complaint-description {
+  padding:10px;
+  background-color:#6d6d6c;
+  color:white;
+}
+
+.info-complaint-buttons {
+  background-color:#7e7d7c;
+  padding:0; 
+}
+
+.info-complaint-buttons div {
+  text-align:center;
+}
+
+.info-complaint-buttons div button {
+  color:white !important;
+}
+
+.info-complaint-comment {
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.info-complaint-comment-img {
+  padding:0px 10px 0px 10px;
+}
+
+.info-complaint-comment-img img {
+  border-radius:50%;
+  background-color:#333334;
+  width:60px;
+}
+
+.info-complaint-comment-body {
+  background-color:#6d6d6c;
+  padding:10px;
+  margin-right:10px;
+  color:white;
+}
+
+.info-complaint-comment-body p {
+  font-size: 0.9em;
+}
+
+.info-complaint-comment-nocomments {
+  background-color:#6d6d6c;
+  padding:10px;
+  color:white;
+}
+
+.new-complaint-form {
+
+}
+
+.new-complaint-form-photo span {
+  font-weight:bold;
+}
+
+.new-complaint-form-audio span {
+  font-weight:bold;
+}
+
+.new-complaint-form-submit {
+  margin:0;
+}
+
+.new-complaint-form-submit button {
+  background-color:#7e7d7c;
+  color:white;
+  text-align:center;
+}
+
+.new-complaint-form-submit button md-icon {
+  color:white;
+  height:auto;
+}
 
 
